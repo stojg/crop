@@ -61,7 +61,7 @@ class Crop {
 	 * @param Imagick $image
 	 * @return int
 	 */
-	protected function area(Imagick $image) {
+	protected function area(\Imagick $image) {
 		$size = $image->getImageGeometry();
 		return $size['height'] * $size['width'];
 	}
@@ -75,7 +75,7 @@ class Crop {
 	 * @param int $targetHeight
 	 * @return array
 	 */
-	protected function getSafeResizeOffset(Imagick $image, $targetWidth, $targetHeight) {
+	protected function getSafeResizeOffset(\Imagick $image, $targetWidth, $targetHeight) {
 		$source = $image->getImageGeometry();
 		if(($source['width'] / $source['height']) < ($targetWidth / $targetHeight)) {
 			$scale = $source['width'] / $targetWidth;
@@ -93,7 +93,7 @@ class Crop {
 	 * @param int $y
 	 * @param string $color
 	 */
-	protected function dot(Imagick$image, $x, $y, $color="red") {
+	protected function dot(\Imagick$image, $x, $y, $color="red") {
 		$circle= new \ImagickDraw();$circle->setFillColor($color);
 		$circle->circle($x, $y, $x, $y+6);
 		$image->drawImage($circle);

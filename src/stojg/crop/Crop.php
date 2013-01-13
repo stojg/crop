@@ -52,7 +52,7 @@ class Crop {
 	public function __construct($imagePath) {
 
 		$this->imagePath = $imagePath;
-		$this->originalImage = new Imagick($imagePath);
+		$this->originalImage = new \Imagick($imagePath);
 	}
 	
 	/**
@@ -94,7 +94,7 @@ class Crop {
 	 * @param string $color
 	 */
 	protected function dot(Imagick$image, $x, $y, $color="red") {
-		$circle= new ImagickDraw();$circle->setFillColor($color);
+		$circle= new \ImagickDraw();$circle->setFillColor($color);
 		$circle->circle($x, $y, $x, $y+6);
 		$image->drawImage($circle);
 	}

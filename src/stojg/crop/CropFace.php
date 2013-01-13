@@ -11,6 +11,6 @@ namespace stojg\crop;
  * @todo implement
  * @see https://github.com/mauricesvay/php-facedetection/blob/master/FaceDetector.php
  */
-class CropFace extends SlyCrop {
+class CropFace extends Crop {
 
 }

@@ -11,7 +11,7 @@ namespace stojg\crop;
  * 2. Trim any edges that is bigger than the targetWidth and targetHeight
  *
  */
-class CropCenter extends SlyCrop {
+class CropCenter extends Crop {
 
 	/**
 	 *

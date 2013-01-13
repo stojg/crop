@@ -14,7 +14,7 @@ namespace stojg\crop;
  * @todo Refactor to make cleaner
  * @todo Rename the class to something more sensible
  */
-class CropBalanced extends SlyCrop{
+class CropBalanced extends Crop {
 
 	/**
 	 * Resize and crop the image so it dimensions matches $targetWidth and $targetHeight

@@ -86,20 +86,6 @@ class Crop {
 	}
 
 	/**
-	 * Put a dot on the image, used for debugging.
-	 *
-	 * @param Imagick $image
-	 * @param int $x
-	 * @param int $y
-	 * @param string $color
-	 */
-	protected function dot(\Imagick$image, $x, $y, $color="red") {
-		$circle= new \ImagickDraw();$circle->setFillColor($color);
-		$circle->circle($x, $y, $x, $y+6);
-		$image->drawImage($circle);
-	}
-
-	/**
 	 * Returns a YUV weighted greyscale value
 	 *
 	 * @param int $r

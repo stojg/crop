@@ -15,7 +15,7 @@ namespace stojg\crop;
  * 4. Return coordinates that makes sure that this piece of the picture is not cropped 'away'
  *
  */
-class SlyCropEntropy extends Crop {
+class CropEntropy extends Crop {
 
 	/**
 	 *

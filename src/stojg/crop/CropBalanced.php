@@ -22,7 +22,7 @@ class CropBalanced extends Crop {
 	 * @param string $imagePath
 	 * @param int $targetWidth
 	 * @param int $targetHeight
-	 * @return boolean|\Imagick
+	 * @return false|\Imagick
 	 */
 	public function resizeAndCrop($targetWidth, $targetHeight) {
 		// First get the size that we can use to safely trim down the image without cropping any sides

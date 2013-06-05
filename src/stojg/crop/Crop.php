@@ -23,7 +23,7 @@ class Crop {
 
 	/**
 	 *
-	 * @var Imagick
+	 * @var \Imagick
 	 */
 	protected $originalImage = null;
 

@@ -11,7 +11,8 @@ namespace stojg\crop;
  * 2. Trim any edges that is bigger than the targetWidth and targetHeight
  *
  */
-class CropCenter extends Crop {
+class CropCenter extends Crop
+{
 
 	/**
 	 * get special offset for class
@@ -21,7 +22,8 @@ class CropCenter extends Crop {
 	 * @param int $targetHeight
 	 * @return array
 	 */
-    protected function getSpecialOffset(Imagick $original, $targetWidth, $targetHeight) {
+    protected function getSpecialOffset(Imagick $original, $targetWidth, $targetHeight)
+    {
 		return $this->getCenterOffset($original, $targetWidth, $targetHeight);
     }
 
@@ -33,7 +35,8 @@ class CropCenter extends Crop {
 	 * @param int $targetHeight
 	 * @return array
 	 */
-	protected function getCenterOffset(\Imagick $image, $targetWidth, $targetHeight) {
+	protected function getCenterOffset(\Imagick $image, $targetWidth, $targetHeight)
+    {
 		$size = $image->getImageGeometry();
 		$originalWidth = $size['width'];
 		$originalHeight = $size['height'];
@@ -41,5 +44,4 @@ class CropCenter extends Crop {
 		$goalY = (int)(($originalHeight-$targetHeight)/2);
 		return array('x' => $goalX, 'y' => $goalY);
 	}
-
 }

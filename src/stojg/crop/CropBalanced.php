@@ -14,8 +14,8 @@ namespace stojg\crop;
  * @todo Refactor to make cleaner
  * @todo Rename the class to something more sensible
  */
-class CropBalanced extends Crop {
-
+class CropBalanced extends Crop
+{
 	/**
 	 * get special offset for class
 	 *
@@ -24,7 +24,8 @@ class CropBalanced extends Crop {
 	 * @param int $targetHeight
 	 * @return array
 	 */
-    protected function getSpecialOffset(Imagick $original, $targetWidth, $targetHeight) {
+    protected function getSpecialOffset(Imagick $original, $targetWidth, $targetHeight)
+    {
 		return $this->getRandomEdgeOffset($original, $targetWidth, $targetHeight);
 	}
 
@@ -35,7 +36,8 @@ class CropBalanced extends Crop {
 	 * @param int $targetHeight
 	 * @return array
 	 */
-	protected function getRandomEdgeOffset(Imagick $original, $targetWidth, $targetHeight) {
+	protected function getRandomEdgeOffset(Imagick $original, $targetWidth, $targetHeight)
+    {
 		$measureImage = clone($original);
 		// Enhance edges
 		$measureImage->edgeimage($radius = 1);
@@ -54,7 +56,8 @@ class CropBalanced extends Crop {
 	 * @return array
 	 * @todo refactor so it follows DRY
 	 */
-	public function getOffsetBalanced($targetWidth, $targetHeight) {
+	public function getOffsetBalanced($targetWidth, $targetHeight)
+    {
 
 		$size = $this->originalImage->getImageGeometry();
 
@@ -88,14 +91,18 @@ class CropBalanced extends Crop {
 		$points[] = array('x' => $point['x']+$halfWidth, 'y' => $point['y']+$halfHeight, 'sum' => $point['sum']);
 
 		// get the totalt sum value so we can find out a mean center point
-		$totalWeight = array_reduce($points, function($result, $array){
-			return $result + $array['sum'];
-		});
+		$totalWeight = array_reduce(
+            $points,
+            function ($result, $array) {
+                return $result + $array['sum'];
+            }
+        );
 
-		$centerX = 0; $centerY = 0;
+		$centerX = 0;
+        $centerY = 0;
 
 		// Calulate the mean weighted center x and y
-		for($idx=0; $idx < count($points); $idx++) {
+		for ($idx=0; $idx < count($points); $idx++) {
 			$centerX += $points[$idx]['x'] * ($points[$idx]['sum'] / $totalWeight);
 			$centerY += $points[$idx]['y'] * ($points[$idx]['sum'] / $totalWeight);
 		}
@@ -106,12 +113,12 @@ class CropBalanced extends Crop {
 
 		// If we don't have enough width for the crop, back up $topleftX until
 		// we can make the image meet $targetWidth
-		if($topleftX + $targetWidth > $size['width']){
+		if ($topleftX + $targetWidth > $size['width']) {
 			$topleftX -= ($topleftX+$targetWidth) - $size['width'];
 		}
 		// If we don't have enough height for the crop, back up $topleftY until
 		// we can make the image meet $targetHeight
-		if($topleftY+$targetHeight > $size['height']){
+		if ($topleftY+$targetHeight > $size['height']) {
 			$topleftY -= ($topleftY+$targetHeight) - $size['height'];
 		}
 
@@ -125,7 +132,8 @@ class CropBalanced extends Crop {
 	 * @param type $image
 	 * @return type
 	 */
-	protected function getHighestEnergyPoint(Imagick $image) {
+	protected function getHighestEnergyPoint(Imagick $image)
+    {
 		$size = $image->getImageGeometry();
 		// It's more performant doing random pixel uplook via GD
 		$image->writeimage('/tmp/image');
@@ -151,7 +159,7 @@ class CropBalanced extends Crop {
 			$ycenter += ($j+1)*$val;
 		}
 
-		if($sum) {
+		if ($sum) {
 			$xcenter /= $sum;
 			$ycenter /= $sum;
 		}

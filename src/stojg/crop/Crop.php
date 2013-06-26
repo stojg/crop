@@ -7,8 +7,8 @@ namespace stojg\crop;
  * Base class for all Croppers
  *
  */
-abstract class Crop {
-
+abstract class Crop
+{
 	/**
 	 *
 	 * @var float
@@ -31,7 +31,8 @@ abstract class Crop {
 	/**
 	 * Profiling method
 	 */
-	public static function start() {
+	public static function start()
+    {
 		self::$start_time = microtime(true);
 	}
 
@@ -40,17 +41,18 @@ abstract class Crop {
 	 *
 	 * @return string
 	 */
-	public static function mark() {
+	public static function mark()
+    {
 		$end_time = (microtime(true) - self::$start_time) * 1000;
-		return sprintf("%.1fms" ,$end_time);
+		return sprintf("%.1fms", $end_time);
 	}
 
 	/**
 	 *
 	 * @param string $imagePath
 	 */
-	public function __construct($imagePath) {
-
+	public function __construct($imagePath)
+    {
 		$this->imagePath = $imagePath;
 		$this->originalImage = new \Imagick($imagePath);
 	}
@@ -61,7 +63,8 @@ abstract class Crop {
 	 * @param Imagick $image
 	 * @return int
 	 */
-	protected function area(\Imagick $image) {
+	protected function area(\Imagick $image)
+    {
 		$size = $image->getImageGeometry();
 		return $size['height'] * $size['width'];
 	}
@@ -74,7 +77,8 @@ abstract class Crop {
 	 * @param int $targetHeight
 	 * @return boolean|\Imagick
 	 */
-	public function resizeAndCrop($targetWidth, $targetHeight) {
+	public function resizeAndCrop($targetWidth, $targetHeight)
+    {
 		// First get the size that we can use to safely trim down the image without cropping any sides
 		$crop = $this->getSafeResizeOffset($this->originalImage, $targetWidth, $targetHeight);
 		// Resize the image
@@ -95,9 +99,10 @@ abstract class Crop {
 	 * @param int $targetHeight
 	 * @return array
 	 */
-	protected function getSafeResizeOffset(\Imagick $image, $targetWidth, $targetHeight) {
+	protected function getSafeResizeOffset(\Imagick $image, $targetWidth, $targetHeight)
+    {
 		$source = $image->getImageGeometry();
-		if(($source['width'] / $source['height']) < ($targetWidth / $targetHeight)) {
+		if (($source['width'] / $source['height']) < ($targetWidth / $targetHeight)) {
 			$scale = $source['width'] / $targetWidth;
 		} else {
 			$scale = $source['height'] / $targetHeight;
@@ -114,7 +119,8 @@ abstract class Crop {
 	 * @return int
 	 * @see http://en.wikipedia.org/wiki/YUV
 	 */
-	protected function rgb2bw($r, $g, $b) {
+	protected function rgb2bw($r, $g, $b)
+    {
 		return ($r*0.299)+($g*0.587)+($b*0.114);
 	}
 
@@ -124,10 +130,11 @@ abstract class Crop {
 	 * @param int $area
 	 * @return float
 	 */
-	protected function getEntropy($histogram, $area) {
+	protected function getEntropy($histogram, $area)
+    {
 		$value = 0.0;
 
-		for($idx = 0; $idx < count($histogram); $idx++) {
+		for ($idx = 0; $idx < count($histogram); $idx++) {
 			// calculates the percentage of pixels having this color value
 			$p = $histogram[$idx]->getColorCount() / $area;
 			// A common way of representing entropy in scalar

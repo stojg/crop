@@ -15,7 +15,8 @@ namespace stojg\crop;
  * 4. Return coordinates that makes sure that this piece of the picture is not cropped 'away'
  *
  */
-class CropEntropy extends Crop {
+class CropEntropy extends Crop
+{
 
 	/**
 	 * get special offset for class
@@ -25,7 +26,8 @@ class CropEntropy extends Crop {
 	 * @param int $targetHeight
 	 * @return array
 	 */
-	protected function getSpecialOffset(\Imagick $original, $targetWidth, $targetHeight) {
+	protected function getSpecialOffset(\Imagick $original, $targetWidth, $targetHeight)
+    {
 		return $this->getEntropyOffsets($original, $targetWidth, $targetHeight);
 	}
 
@@ -38,7 +40,8 @@ class CropEntropy extends Crop {
 	 * @param int $targetHeight
 	 * @return array
 	 */
-	protected function getEntropyOffsets(\Imagick $original, $targetWidth, $targetHeight) {
+	protected function getEntropyOffsets(\Imagick $original, $targetWidth, $targetHeight)
+    {
 		$measureImage = clone($original);
 		// Enhance edges
 		$measureImage->edgeimage(1);
@@ -59,10 +62,11 @@ class CropEntropy extends Crop {
 	 * @param int $sliceSize
 	 * @return array
 	 */
-	protected function getOffsetFromEntropy(\Imagick $originalImage, $targetWidth, $targetHeight) {
+	protected function getOffsetFromEntropy(\Imagick $originalImage, $targetWidth, $targetHeight)
+    {
         // The entropy works better on a blured image
 		$image = clone $originalImage;
-		$image->blurImage(3,2);
+		$image->blurImage(3, 2);
 
 		$size = $image->getImageGeometry();
 
@@ -80,24 +84,24 @@ class CropEntropy extends Crop {
 		$rightSlice = null;
 
 		// while there still are uninvestigated slices of the image
-		while($rightX-$leftX > $targetWidth) {
+		while ($rightX-$leftX > $targetWidth) {
 			// Make sure that we don't try to slice outside the picture
 			$sliceSize = min($rightX - $leftX - $targetWidth, $sliceSize);
 
 			// Make a left slice image
-			if(!$leftSlice) {
+			if (!$leftSlice) {
 				$leftSlice = clone($image);
 				$leftSlice->cropImage($sliceSize, $originalHeight, $leftX, 0);
 			}
 
 			// Make a right slice image
-			if(!$rightSlice) {
+			if (!$rightSlice) {
 				$rightSlice = clone($image);
 				$rightSlice->cropImage($sliceSize, $originalHeight, $rightX - $sliceSize, 0);
 			}
 
 			// rightSlice has more entropy, so remove leftSlice and bump leftX to the right
-			if($this->grayscaleEntropy($leftSlice) < $this->grayscaleEntropy($rightSlice)) {
+			if ($this->grayscaleEntropy($leftSlice) < $this->grayscaleEntropy($rightSlice)) {
 				$leftX += $sliceSize;
 				$leftSlice = null;
 			} else {
@@ -113,22 +117,22 @@ class CropEntropy extends Crop {
 		$sliceSize = ceil(($originalHeight - $targetHeight) / 25);
 				
 		// while there still are uninvestigated slices of the image
-		while($bottomY-$topY > $targetHeight) {
+		while ($bottomY-$topY > $targetHeight) {
 			// Make sure that we don't try to slice outside the picture
 			$sliceSize = min($bottomY - $topY - $targetHeight, $sliceSize);
 
 			// Make a top slice image
-			if(!$topSlice) {
+			if (!$topSlice) {
 				$topSlice = clone($image);
 				$topSlice->cropImage($originalWidth, $sliceSize, 0, $topY);
 			}
 			// Make a bottom slice image
-			if(!$bottomSlice) {
+			if (!$bottomSlice) {
 				$bottomSlice = clone($image);
 				$bottomSlice->cropImage($originalWidth, $sliceSize, 0, $bottomY - $sliceSize);
 			}
-			// bottomSlice has more entropy, so remove topSlice and bump topY down 
-			if($this->grayscaleEntropy($topSlice) < $this->grayscaleEntropy($bottomSlice)) {
+			// bottomSlice has more entropy, so remove topSlice and bump topY down
+			if ($this->grayscaleEntropy($topSlice) < $this->grayscaleEntropy($bottomSlice)) {
 				$topY += $sliceSize;
 				$topSlice = null;
 			} else {
@@ -151,8 +155,8 @@ class CropEntropy extends Crop {
 	 * @see http://brainacle.com/calculating-image-entropy-with-python-how-and-why.html
 	 * @see http://www.mathworks.com/help/toolbox/images/ref/entropy.html
 	 */
-	protected function grayscaleEntropy(\Imagick $image) {
-		
+	protected function grayscaleEntropy(\Imagick $image)
+    {
 		// The histogram consists of a list of 0-254 and the number of pixels that has that value
 		$histogram = $image->getImageHistogram();
 		
@@ -168,15 +172,16 @@ class CropEntropy extends Crop {
 	 * @param \Imagick $image
 	 * @return float
 	 */
-	protected function colorEntropy(Imagick $image) {
+	protected function colorEntropy(Imagick $image)
+    {
 		$histogram = $image->getImageHistogram();
 		$newHistogram = array();
 
 		// Translates a color histogram into a bw histogram
-		for($idx = 0; $idx < count($histogram); $idx++) {
+		for ($idx = 0; $idx < count($histogram); $idx++) {
 			$colors = $histogram[$idx]->getColor();
 			$grey = $this->rgb2bw($colors['r'], $colors['g'], $colors['b']);
-			if(!isset($newHistogram[$grey])) {
+			if (!isset($newHistogram[$grey])) {
 				$newHistogram[$grey] = $histogram[$idx]->getColorCount();
 			} else {
 				$newHistogram[$grey] += $histogram[$idx]->getColorCount();

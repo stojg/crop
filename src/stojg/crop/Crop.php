@@ -10,16 +10,11 @@ namespace stojg\crop;
 abstract class Crop
 {
 	/**
+	 * Timer used for profiler / debugging
 	 *
 	 * @var float
 	 */
 	protected static $start_time = 0.0;
-
-	/**
-	 *
-	 * @var string
-	 */
-	protected $imagePath = '';
 
 	/**
 	 *
@@ -49,11 +44,11 @@ abstract class Crop
 
 	/**
 	 *
-	 * @param string $imagePath
+	 * @param string $imagePath - The path to an image to load. Paths can include wildcards for file names,
+	 *							  or can be URLs.
 	 */
 	public function __construct($imagePath)
     {
-		$this->imagePath = $imagePath;
 		$this->originalImage = new \Imagick($imagePath);
 	}
 	

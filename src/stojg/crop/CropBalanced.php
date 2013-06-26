@@ -17,23 +17,15 @@ namespace stojg\crop;
 class CropBalanced extends Crop {
 
 	/**
-	 * Resize and crop the image so it dimensions matches $targetWidth and $targetHeight
+	 * get special offset for class
 	 *
-	 * @param string $imagePath
+	 * @param Imagick $original
 	 * @param int $targetWidth
 	 * @param int $targetHeight
-	 * @return false|\Imagick
+	 * @return array
 	 */
-	public function resizeAndCrop($targetWidth, $targetHeight) {
-		// First get the size that we can use to safely trim down the image without cropping any sides
-		$crop = $this->getSafeResizeOffset($this->originalImage, $targetWidth, $targetHeight);
-		// Resize the image
-		$this->originalImage->resizeImage($crop['width'], $crop['height'], Imagick::FILTER_CATROM, 0.5);
-		// Get the offset for cropping the image further
-		$offset = $this->getRandomEdgeOffset($this->originalImage, $targetWidth, $targetHeight);
-		// Crop the image
-		$this->originalImage->cropImage($targetWidth, $targetHeight, $offset['x'], $offset['y']);
-		return $this->originalImage;
+    protected function getSpecialOffset(Imagick $original, $targetWidth, $targetHeight) {
+		return $this->getRandomEdgeOffset($original, $targetWidth, $targetHeight);
 	}
 
 	/**

@@ -14,23 +14,16 @@ namespace stojg\crop;
 class CropCenter extends Crop {
 
 	/**
+	 * get special offset for class
 	 *
-	 * @param string $imagePath
+	 * @param Imagick $original
 	 * @param int $targetWidth
 	 * @param int $targetHeight
-	 * @return boolean|\Imagick
+	 * @return array
 	 */
-	public function resizeAndCrop($targetWidth, $targetHeight) {
-		// First get the size that we can use to safely trim down the image to without cropping any sides
-		$crop = $this->getSafeResizeOffset($this->originalImage, $targetWidth, $targetHeight);
-		// Resize image
-		$this->originalImage->resizeImage($crop['width'], $crop['height'], \Imagick::FILTER_CATROM, 0.5);
-		// Get the offset from the center of the image
-		$offset = $this->getCenterOffset($this->originalImage, $targetWidth, $targetHeight);
-		// Crop the image
-		$this->originalImage->cropImage($targetWidth, $targetHeight, $offset['x'], $offset['y']);
-		return $this->originalImage;
-	}
+    protected function getSpecialOffset(Imagick $original, $targetWidth, $targetHeight) {
+		return $this->getCenterOffset($original, $targetWidth, $targetHeight);
+    }
 
 	/**
 	 * Get the cropping offset for the image based on the center of the image

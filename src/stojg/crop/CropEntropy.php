@@ -70,79 +70,139 @@ class CropEntropy extends Crop
 
 		$size = $image->getImageGeometry();
 
-		$originalWidth = $rightX = $size['width'];
-		$originalHeight = $bottomY = $size['height'];
+		$originalWidth = $size['width'];
+		$originalHeight = $size['height'];
 		// This is going to be our goal for topleftY
 		$topY = 0;
 		// This is going to be our goal for topleftX
 		$leftX = 0;
 
-		// Just an arbitrary size of slice size
-		$sliceSize = ceil(($originalWidth - $targetWidth) / 25);
-				
-		$leftSlice = null;
-		$rightSlice = null;
 
-		// while there still are uninvestigated slices of the image
-		while ($rightX-$leftX > $targetWidth) {
-			// Make sure that we don't try to slice outside the picture
-			$sliceSize = min($rightX - $leftX - $targetWidth, $sliceSize);
+        // get left slice
+        $leftX = $this->slice($image, $originalWidth, $targetWidth, 'h');
 
-			// Make a left slice image
-			if (!$leftSlice) {
-				$leftSlice = clone($image);
-				$leftSlice->cropImage($sliceSize, $originalHeight, $leftX, 0);
-			}
-
-			// Make a right slice image
-			if (!$rightSlice) {
-				$rightSlice = clone($image);
-				$rightSlice->cropImage($sliceSize, $originalHeight, $rightX - $sliceSize, 0);
-			}
-
-			// rightSlice has more entropy, so remove leftSlice and bump leftX to the right
-			if ($this->grayscaleEntropy($leftSlice) < $this->grayscaleEntropy($rightSlice)) {
-				$leftX += $sliceSize;
-				$leftSlice = null;
-			} else {
-				$rightX -= $sliceSize;
-				$rightSlice = null;
-			}
-		}
-
-		$topSlice = null;
-		$bottomSlice = null;
-
-		// Just an arbitrary size of slice size
-		$sliceSize = ceil(($originalHeight - $targetHeight) / 25);
-				
-		// while there still are uninvestigated slices of the image
-		while ($bottomY-$topY > $targetHeight) {
-			// Make sure that we don't try to slice outside the picture
-			$sliceSize = min($bottomY - $topY - $targetHeight, $sliceSize);
-
-			// Make a top slice image
-			if (!$topSlice) {
-				$topSlice = clone($image);
-				$topSlice->cropImage($originalWidth, $sliceSize, 0, $topY);
-			}
-			// Make a bottom slice image
-			if (!$bottomSlice) {
-				$bottomSlice = clone($image);
-				$bottomSlice->cropImage($originalWidth, $sliceSize, 0, $bottomY - $sliceSize);
-			}
-			// bottomSlice has more entropy, so remove topSlice and bump topY down
-			if ($this->grayscaleEntropy($topSlice) < $this->grayscaleEntropy($bottomSlice)) {
-				$topY += $sliceSize;
-				$topSlice = null;
-			} else {
-				$bottomY -= $sliceSize;
-				$bottomSlice = null;
-			}
-		}
+        // get right slice
+        $topY = $this->slice($image, $originalHeight, $targetHeight, 'v');
 
 		return array('x' => $leftX, 'y' => $topY);
 	}
+
+
+    /**
+     * slice
+     *
+     * @param mixed $image
+     * @param mixed $originalSize
+     * @param mixed $targetSize
+     * @param mixed $axis h=horizontal, v = vertical
+     * @access protected
+     * @return void
+     */
+    protected function slice($image, $originalSize, $targetSize, $axis)
+    {
+		$aSlice = null;
+		$bSlice = null;
+
+		// Just an arbitrary size of slice size
+		$sliceSize = ceil(($originalSize - $targetSize) / 25);
+
+        $aBottom = $originalSize;
+        $aTop = 0;
+				
+		// while there still are uninvestigated slices of the image
+		while ($aBottom - $aTop > $targetSize) {
+			// Make sure that we don't try to slice outside the picture
+			$sliceSize = min($aBottom - $aTop - $targetSize, $sliceSize);
+
+			// Make a top slice image
+			if (!$aSlice) {
+				$aSlice = clone($image);
+				$aSlice->cropImage($originalSize, $sliceSize, 0, $aTop);
+			}
+			// Make a bottom slice image
+			if (!$bSlice) {
+				$bSlice = clone($image);
+				$bSlice->cropImage($originalSize, $sliceSize, 0, $aBottom - $sliceSize);
+			}
+
+            // calculate limits
+            $canCutA = true;
+            $canCutB = true;
+
+            $position = ($axis === 'h' ? 'left' : 'top');
+            $aLimit = $this->getLimit($position, $aTop);
+            if ($aLimit !== null && $aTop + $sliceSize > $aLimit) {
+                $canCutA = false;
+            }
+
+            $position = ($axis === 'h' ? 'right' : 'bottom');
+            $bLimit = $this->getLimit($position, $aBottom);
+            if ($bLimit !== null && $aBottom - $sliceSize < $bLimit) {
+                $canCutB = false;
+            }
+
+            // if we can only cut on one side
+            if ($canCutA xor $canCutB) {
+                if ($canCutA) {
+                    $aTop += $sliceSize;
+                    $aSlice = null;
+                } else {
+                    $aBottom -= $sliceSize;
+                    $bSlice = null;
+                }
+			} elseif ($this->grayscaleEntropy($aSlice) < $this->grayscaleEntropy($bSlice)) {
+                // bSlice has more entropy, so remove aSlice and bump aTop down
+				$aTop += $sliceSize;
+				$aSlice = null;
+			} else {
+				$aBottom -= $sliceSize;
+				$bSlice = null;
+			}
+		}
+
+        return $aTop;
+    }
+
+    /**
+     * getLimit get image limit. Used to set "uncropable" limit
+     *
+     * @param strinc $position (top|bottom|left|right)
+     * @param int $offset
+     * @access protected
+     * @return int|null
+     */
+    protected function getLimit($position, $offset = 0)
+    {
+        $safeZoneList = $this->getSafeZoneList();
+
+        $v = null;
+        if (!empty($safeZoneList)) {
+            foreach ($safeZoneList as $safeZone) {
+                if ($position == 'left' || $position == 'top') {
+                    if ($safeZone[$position] >= $offset) {
+                        $v = ($v  === null ? $safeZone[$position] : min($v, $safeZone[$position]));
+                    }
+                } elseif ($position == 'right' || $position == 'bottom') {
+                    if ($safeZone[$position] <= $offset) {
+                        $v = ($v  === null ? $safeZone[$position] : max($v, $safeZone[$position]));
+                    }
+                }
+            }
+        }
+
+        return $v;
+    }
+
+    /**
+     * getSafeZoneList
+     *
+     * @access protected
+     * @return void
+     */
+    protected function getSafeZoneList()
+    {
+        return null;
+    }
 
 	/**
 	 * Calculate the entropy for this image.

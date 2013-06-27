@@ -77,7 +77,7 @@ abstract class Crop
 		// First get the size that we can use to safely trim down the image without cropping any sides
 		$crop = $this->getSafeResizeOffset($this->originalImage, $targetWidth, $targetHeight);
 		// Resize the image
-		$this->originalImage->resizeImage($crop['width'], $crop['height'], \Imagick::FILTER_GAUSSIAN, 1);
+		$this->originalImage->resizeImage($crop['width'], $crop['height'], \Imagick::FILTER_CUBIC, .5);
 		// Get the offset for cropping the image further
 		$offset = $this->getSpecialOffset($this->originalImage, $targetWidth, $targetHeight);
 		// Crop the image

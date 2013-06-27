@@ -40,8 +40,11 @@ Crop balanced is a variant of CropEntropy where I tried to the cropping a bit mo
 
 ### CropFace
 
-This cropping is currently not implemented. I'm planning to give it a go sometimes, but face recognition 
-is a tricky thing and requires quite some processing power that are more suitable for offline processing.
+Crop face uses [http://www.xarg.org/project/php-facedetect/](PHP Facedetect Extension) (which uses OpenCV).
+
+In details, the FaceCrop uses Entropy Crop but puts blocking "limits" on the faces.
+If the program faces two limits, we let the entropy decide the best crop.
+
 
 ## Usage
 

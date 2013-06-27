@@ -114,16 +114,25 @@ class CropEntropy extends Crop
 			// Make sure that we don't try to slice outside the picture
 			$sliceSize = min($aBottom - $aTop - $targetSize, $sliceSize);
 
-			// Make a top slice image
-			if (!$aSlice) {
-				$aSlice = clone($image);
-				$aSlice->cropImage($originalSize, $sliceSize, 0, $aTop);
-			}
-			// Make a bottom slice image
-			if (!$bSlice) {
-				$bSlice = clone($image);
-				$bSlice->cropImage($originalSize, $sliceSize, 0, $aBottom - $sliceSize);
-			}
+            // Make a top slice image
+            if (!$aSlice) {
+                $aSlice = clone($image);
+                if ($axis === 'h') {
+                    $aSlice->cropImage($originalSize, $sliceSize, $aTop, 0);
+                } else {
+                    $aSlice->cropImage($originalSize, $sliceSize, 0, $aTop);
+                }
+            }
+
+            // Make a bottom slice image
+            if (!$bSlice) {
+                $bSlice = clone($image);
+                if ($axis === 'h') {
+                    $bSlice->cropImage($originalSize, $sliceSize, $aBottom - $sliceSize, 0);
+                } else {
+                    $bSlice->cropImage($originalSize, $sliceSize, 0, $aBottom - $sliceSize);
+                }
+            }
 
             // calculate limits
             $canCutA = true;

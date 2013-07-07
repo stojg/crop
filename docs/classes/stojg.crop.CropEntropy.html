@@ -113,7 +113,7 @@
         <li class="nav-header">
             <i class="icon-custom icon-method"></i> Methods
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                            <li class="method public inherited">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <li class="method public inherited">
         <a href="#method_start" title="start :: Profiling method">
             <span class="description">Profiling method</span><pre>start</pre>
         </a>
@@ -157,6 +157,21 @@
                             </a>
                         </li>
                                                                                 <li class="method protected">
+                            <a href="#method_slice" title="slice :: slice">
+                                <span class="description">slice</span><pre>slice</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_getLimit" title="getLimit :: getLimit get image limit. Used to set &quot;uncropable&quot; limit">
+                                <span class="description">getLimit get image limit. Used to set &quot;uncropable&quot; limit</span><pre>getLimit</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_getSafeZoneList" title="getSafeZoneList :: getSafeZoneList">
+                                <span class="description">getSafeZoneList</span><pre>getSafeZoneList</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
                             <a href="#method_grayscaleEntropy" title="grayscaleEntropy :: Calculate the entropy for this image.">
                                 <span class="description">Calculate the entropy for this image.</span><pre>grayscaleEntropy</pre>
                             </a>
@@ -192,11 +207,21 @@ and allow the image to be larger than either the width or height</span><pre>getS
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
             <ul>
+                                <li class="constant ">
+                    <a href="#constant_" title=" :: ">
+                        <span class="description"></span><pre></pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_" title=" :: ">
+                        <span class="description"></span><pre></pre>
+                    </a>
+                </li>
                             </ul>
         </li>
     </ul>
@@ -226,7 +251,7 @@ and allow the image to be larger than either the width or height</span><pre>getS
 
                     </div>
                     <table class="table table-bordered">
-                                            </table>
+                                                                                                                                                                                                                                                            </table>
 
                     <h3><i class="icon-custom icon-method"></i> Methods</h3>
                                                                 <a id="method_getSpecialOffset"></a>
@@ -355,6 +380,146 @@ and allow the image to be larger than either the width or height</span><pre>getS
 </p>
                                             </div>
                                                                             
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p>
+</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_slice"></a>
+                        <div class="element clickable method protected method_slice" data-toggle="collapse" data-target=".method_slice .collapse">
+                            <h2>slice</h2>
+                            <pre>slice(mixed $image, mixed $originalSize, mixed $targetSize, mixed $axis) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description">
+</div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                    <p>protected</p>
+
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$image</h4>
+                                                <code>mixed</code><p>
+</p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$originalSize</h4>
+                                                <code>mixed</code><p>
+</p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetSize</h4>
+                                                <code>mixed</code><p>
+</p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$axis</h4>
+                                                <code>mixed</code><p><p>h=horizontal, v = vertical</p>
+</p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_getLimit"></a>
+                        <div class="element clickable method protected method_getLimit" data-toggle="collapse" data-target=".method_getLimit .collapse">
+                            <h2>getLimit get image limit. Used to set &quot;uncropable&quot; limit</h2>
+                            <pre>getLimit(string $position, int $offset) : int|null</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description">
+</div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                    <p>protected</p>
+
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$position</h4>
+                                                <code>string</code><p><p>(top|bottom|left|right)</p>
+</p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$offset</h4>
+                                                <code>int</code><p>
+</p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>int|null</code><p>
+</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_getSafeZoneList"></a>
+                        <div class="element clickable method protected method_getSafeZoneList" data-toggle="collapse" data-target=".method_getSafeZoneList .collapse">
+                            <h2>getSafeZoneList</h2>
+                            <pre>getSafeZoneList() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description">
+</div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                    <p>protected</p>
+
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
                                                                             <h3>Response</h3>
                                         <code>array</code><p>
 </p>
@@ -755,7 +920,38 @@ and allow the image to be larger than either the width or height</h2>
                             </div>
                         </div>
                     
-                    
+                                            <h3><i class="icon-custom icon-constant"></i> Constants</h3>
+                                                    <a id="constant_"> </a>
+                            <div class="element clickable constant  constant_ inherited" data-toggle="collapse" data-target=".constant_ .collapse">
+                                <h2></h2>
+                                <pre></pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description">
+</div>
+                                        <table class="table">
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_"> </a>
+                            <div class="element clickable constant  constant_ inherited" data-toggle="collapse" data-target=".constant_ .collapse">
+                                <h2></h2>
+                                <pre></pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description">
+</div>
+                                        <table class="table">
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                            
                                                                 <h3><i class="icon-custom icon-property"></i> Properties</h3>
                                                     <a id="property_start_time"> </a>
                             <div class="element clickable property protected property_start_time inherited" data-toggle="collapse" data-target=".property_start_time .collapse">
@@ -841,7 +1037,7 @@ and allow the image to be larger than either the width or height</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Sun, 07 Jul 2013 02:25:03 +0000.<br/>
+            generated on Sun, 07 Jul 2013 05:11:26 +0000.<br/>
     </footer>
     </body>
 </html>

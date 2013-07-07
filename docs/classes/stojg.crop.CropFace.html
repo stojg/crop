@@ -113,54 +113,29 @@
         <li class="nav-header">
             <i class="icon-custom icon-method"></i> Methods
             <ul>
-                                                                                    <li class="method public inherited">
-        <a href="#method_start" title="start :: Profiling method">
-            <span class="description">Profiling method</span><pre>start</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public inherited">
-        <a href="#method_mark" title="mark :: Profiling method">
-            <span class="description">Profiling method</span><pre>mark</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public inherited">
+                                                                                    <li class="method public">
         <a href="#method___construct" title="__construct :: ">
             <span class="description"></span><pre>__construct</pre>
         </a>
     </li>
 
-                                                                                                                                                                <li class="method public inherited">
-        <a href="#method_resizeAndCrop" title="resizeAndCrop :: Resize and crop the image so it dimensions matches $targetWidth and $targetHeight">
-            <span class="description">Resize and crop the image so it dimensions matches $targetWidth and $targetHeight</span><pre>resizeAndCrop</pre>
-        </a>
-    </li>
-
-                                                                                                                                                                                                                                                                                </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                        <li class="method protected inherited">
-                            <a href="#method_area" title="area :: Get the area in pixels for this image">
-                                <span class="description">Get the area in pixels for this image</span><pre>area</pre>
+                                                                                                <li class="method protected">
+                            <a href="#method_getFaceList" title="getFaceList :: getFaceList get faces positions and sizes">
+                                <span class="description">getFaceList get faces positions and sizes</span><pre>getFaceList</pre>
                             </a>
                         </li>
-                                                                                                                    <li class="method protected inherited">
-                            <a href="#method_getSafeResizeOffset" title="getSafeResizeOffset :: Returns width and height for resizing the image, keeping the aspect ratio
-and allow the image to be larger than either the width or height">
-                                <span class="description">Returns width and height for resizing the image, keeping the aspect ratio
-and allow the image to be larger than either the width or height</span><pre>getSafeResizeOffset</pre>
+                                                                                <li class="method protected">
+                            <a href="#method_getFaceListFromClassifier" title="getFaceListFromClassifier :: getFaceListFromClassifier">
+                                <span class="description">getFaceListFromClassifier</span><pre>getFaceListFromClassifier</pre>
                             </a>
                         </li>
-                                                                                <li class="method protected inherited">
-                            <a href="#method_rgb2bw" title="rgb2bw :: Returns a YUV weighted greyscale value">
-                                <span class="description">Returns a YUV weighted greyscale value</span><pre>rgb2bw</pre>
-                            </a>
-                        </li>
-                                                                                <li class="method protected inherited">
-                            <a href="#method_getEntropy" title="getEntropy :: ">
-                                <span class="description"></span><pre>getEntropy</pre>
+                                                                                <li class="method protected">
+                            <a href="#method_getSafeZoneList" title="getSafeZoneList :: getSafeZoneList">
+                                <span class="description">getSafeZoneList</span><pre>getSafeZoneList</pre>
                             </a>
                         </li>
                                                                                 <li class="method protected inherited">
@@ -168,15 +143,55 @@ and allow the image to be larger than either the width or height</span><pre>getS
                                 <span class="description">get special offset for class</span><pre>getSpecialOffset</pre>
                             </a>
                         </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_getEntropyOffsets" title="getEntropyOffsets :: Get the topleftX and topleftY that will can be passed to a cropping method.">
+                                <span class="description">Get the topleftX and topleftY that will can be passed to a cropping method.</span><pre>getEntropyOffsets</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_getOffsetFromEntropy" title="getOffsetFromEntropy :: Get the offset of where the crop should start">
+                                <span class="description">Get the offset of where the crop should start</span><pre>getOffsetFromEntropy</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_slice" title="slice :: slice">
+                                <span class="description">slice</span><pre>slice</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_getLimit" title="getLimit :: getLimit get image limit. Used to set &quot;uncropable&quot; limit">
+                                <span class="description">getLimit get image limit. Used to set &quot;uncropable&quot; limit</span><pre>getLimit</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_grayscaleEntropy" title="grayscaleEntropy :: Calculate the entropy for this image.">
+                                <span class="description">Calculate the entropy for this image.</span><pre>grayscaleEntropy</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_colorEntropy" title="colorEntropy :: Find out the entropy for a color image">
+                                <span class="description">Find out the entropy for a color image</span><pre>colorEntropy</pre>
+                            </a>
+                        </li>
                                                 </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
             <ul>
+                                <li class="constant ">
+                    <a href="#constant_CLASSIFIER_FACE" title="CLASSIFIER_FACE :: ">
+                        <span class="description"></span><pre>CLASSIFIER_FACE</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_CLASSIFIER_PROFILE" title="CLASSIFIER_PROFILE :: ">
+                        <span class="description"></span><pre>CLASSIFIER_PROFILE</pre>
+                    </a>
+                </li>
                             </ul>
         </li>
     </ul>
@@ -188,7 +203,7 @@ and allow the image to be larger than either the width or height</span><pre>getS
             <div class="element class">
                 <h1>CropFace</h1>
                 <small style="display: block; text-align: right">
-                                            Extends <a href="../classes/stojg.crop.Crop.html">\stojg\crop\Crop</a>
+                                            Extends <a href="../classes/stojg.crop.CropEntropy.html">\stojg\crop\CropEntropy</a>
                                                         </small>
                 <p class="short_description">CropFace</p>
                 <div class="details">
@@ -219,72 +234,12 @@ center the crop on that</p>
                                                                         </table>
 
                     <h3><i class="icon-custom icon-method"></i> Methods</h3>
-                                                                <a id="method_start"></a>
-                        <div class="element clickable method public method_start inherited" data-toggle="collapse" data-target=".method_start .collapse">
-                            <h2>Profiling method</h2>
-                            <pre>start() </pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description">
-</div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                    
-                                                                    </div>
-                            </div>
-                        </div>
-                                            <a id="method_mark"></a>
-                        <div class="element clickable method public method_mark inherited" data-toggle="collapse" data-target=".method_mark .collapse">
-                            <h2>Profiling method</h2>
-                            <pre>mark() : string</pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description">
-</div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                    
-                                                                            <h3>Response</h3>
-                                        <code>string</code><p>
-</p>
-                                                                    </div>
-                            </div>
-                        </div>
-                                            <a id="method___construct"></a>
-                        <div class="element clickable method public method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
                             <h2>__construct</h2>
                             <pre>__construct(string $imagePath) </pre>
                             <div class="labels">
-                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                                                                                                                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description">
@@ -310,28 +265,34 @@ center the crop on that</p>
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$imagePath</h4>
-                                                <code>string</code><p><ul>
-<li>The path to an image to load. Paths can include wildcards for file names,
-                      or can be URLs.</li>
-</ul>
+                                                <code>string</code><p>
 </p>
                                             </div>
                                                                             
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_area"></a>
-                        <div class="element clickable method protected method_area inherited" data-toggle="collapse" data-target=".method_area .collapse">
-                            <h2>Get the area in pixels for this image</h2>
-                            <pre>area(\Imagick $image) : int</pre>
+                                            <a id="method_getFaceList"></a>
+                        <div class="element clickable method protected method_getFaceList" data-toggle="collapse" data-target=".method_getFaceList .collapse">
+                            <h2>getFaceList get faces positions and sizes</h2>
+                            <pre>getFaceList() : array</pre>
                             <div class="labels">
-                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                                                                                                                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description">
 </div>
 
                                     <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                    <p>protected</p>
+
+                                                                                                    </td>
+                                            </tr>
                                                                                     <tr>
                                                 <th>
                                                     
@@ -341,31 +302,34 @@ center the crop on that</p>
                                             </tr>
                                                                             </table>
 
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$image</h4>
-                                                <code>\Imagick</code><p>
-</p>
-                                            </div>
-                                                                            
+                                    
                                                                             <h3>Response</h3>
-                                        <code>int</code><p>
+                                        <code>array</code><p>
 </p>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_resizeAndCrop"></a>
-                        <div class="element clickable method public method_resizeAndCrop inherited" data-toggle="collapse" data-target=".method_resizeAndCrop .collapse">
-                            <h2>Resize and crop the image so it dimensions matches $targetWidth and $targetHeight</h2>
-                            <pre>resizeAndCrop(int $targetWidth, int $targetHeight) : boolean|\Imagick</pre>
+                                            <a id="method_getFaceListFromClassifier"></a>
+                        <div class="element clickable method protected method_getFaceListFromClassifier" data-toggle="collapse" data-target=".method_getFaceListFromClassifier .collapse">
+                            <h2>getFaceListFromClassifier</h2>
+                            <pre>getFaceListFromClassifier(string $classifier) : array</pre>
                             <div class="labels">
-                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                                                                                                                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description">
 </div>
 
                                     <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                    <p>protected</p>
+
+                                                                                                    </td>
+                                            </tr>
                                                                                     <tr>
                                                 <th>
                                                     
@@ -377,58 +341,8 @@ center the crop on that</p>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
-                                                <h4>$targetWidth</h4>
-                                                <code>int</code><p>
-</p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$targetHeight</h4>
-                                                <code>int</code><p>
-</p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>boolean|\Imagick</code><p>
-</p>
-                                                                    </div>
-                            </div>
-                        </div>
-                                            <a id="method_getSafeResizeOffset"></a>
-                        <div class="element clickable method protected method_getSafeResizeOffset inherited" data-toggle="collapse" data-target=".method_getSafeResizeOffset .collapse">
-                            <h2>Returns width and height for resizing the image, keeping the aspect ratio
-and allow the image to be larger than either the width or height</h2>
-                            <pre>getSafeResizeOffset(\Imagick $image, int $targetWidth, int $targetHeight) : array</pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                                                                                                                                            </div>
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description">
-</div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$image</h4>
-                                                <code>\Imagick</code><p>
-</p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$targetWidth</h4>
-                                                <code>int</code><p>
-</p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$targetHeight</h4>
-                                                <code>int</code><p>
+                                                <h4>$classifier</h4>
+                                                <code>string</code><p>
 </p>
                                             </div>
                                                                             
@@ -438,12 +352,12 @@ and allow the image to be larger than either the width or height</h2>
                                                                     </div>
                             </div>
                         </div>
-                                            <a id="method_rgb2bw"></a>
-                        <div class="element clickable method protected method_rgb2bw inherited" data-toggle="collapse" data-target=".method_rgb2bw .collapse">
-                            <h2>Returns a YUV weighted greyscale value</h2>
-                            <pre>rgb2bw(int $r, int $g, int $b) : int</pre>
+                                            <a id="method_getSafeZoneList"></a>
+                        <div class="element clickable method protected method_getSafeZoneList" data-toggle="collapse" data-target=".method_getSafeZoneList .collapse">
+                            <h2>getSafeZoneList</h2>
+                            <pre>getSafeZoneList() : array</pre>
                             <div class="labels">
-                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                                                                                                                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description">
@@ -452,10 +366,10 @@ and allow the image to be larger than either the width or height</h2>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    see
+                                                    access
                                                 </th>
                                                 <td>
-                                                                                                                                                                    
+                                                                                                                                                                    <p>private</p>
 
                                                                                                     </td>
                                             </tr>
@@ -468,66 +382,9 @@ and allow the image to be larger than either the width or height</h2>
                                             </tr>
                                                                             </table>
 
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$r</h4>
-                                                <code>int</code><p>
-</p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$g</h4>
-                                                <code>int</code><p>
-</p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$b</h4>
-                                                <code>int</code><p>
-</p>
-                                            </div>
-                                                                            
+                                    
                                                                             <h3>Response</h3>
-                                        <code>int</code><p>
-</p>
-                                                                    </div>
-                            </div>
-                        </div>
-                                            <a id="method_getEntropy"></a>
-                        <div class="element clickable method protected method_getEntropy inherited" data-toggle="collapse" data-target=".method_getEntropy .collapse">
-                            <h2>getEntropy</h2>
-                            <pre>getEntropy(array $histogram, int $area) : float</pre>
-                            <div class="labels">
-                                <span class="label">inherited</span>                                                                                                                                                            </div>
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description">
-</div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$histogram</h4>
-                                                <code>array</code><p><ul>
-<li>a value[count] array</li>
-</ul>
-</p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$area</h4>
-                                                <code>int</code><p>
-</p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>float</code><p>
+                                        <code>array</code><p>
 </p>
                                                                     </div>
                             </div>
@@ -537,7 +394,7 @@ and allow the image to be larger than either the width or height</h2>
                             <h2>get special offset for class</h2>
                             <pre>getSpecialOffset(\Imagick $original, int $targetWidth, int $targetHeight) : array</pre>
                             <div class="labels">
-                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description">
@@ -576,15 +433,349 @@ and allow the image to be larger than either the width or height</h2>
                                                                     </div>
                             </div>
                         </div>
+                                            <a id="method_getEntropyOffsets"></a>
+                        <div class="element clickable method protected method_getEntropyOffsets inherited" data-toggle="collapse" data-target=".method_getEntropyOffsets .collapse">
+                            <h2>Get the topleftX and topleftY that will can be passed to a cropping method.</h2>
+                            <pre>getEntropyOffsets(\Imagick $original, int $targetWidth, int $targetHeight) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description">
+</div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$original</h4>
+                                                <code>\Imagick</code><p>
+</p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetWidth</h4>
+                                                <code>int</code><p>
+</p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetHeight</h4>
+                                                <code>int</code><p>
+</p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p>
+</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_getOffsetFromEntropy"></a>
+                        <div class="element clickable method protected method_getOffsetFromEntropy inherited" data-toggle="collapse" data-target=".method_getOffsetFromEntropy .collapse">
+                            <h2>Get the offset of where the crop should start</h2>
+                            <pre>getOffsetFromEntropy(\Imagick $originalImage, $targetWidth, int $targetHeight) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description">
+</div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$originalImage</h4>
+                                                <code>\Imagick</code><p>
+</p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetWidth</h4>
+                                                <code></code><p>
+</p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetHeight</h4>
+                                                <code>int</code><p>
+</p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p>
+</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_slice"></a>
+                        <div class="element clickable method protected method_slice inherited" data-toggle="collapse" data-target=".method_slice .collapse">
+                            <h2>slice</h2>
+                            <pre>slice(mixed $image, mixed $originalSize, mixed $targetSize, mixed $axis) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description">
+</div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                    <p>protected</p>
+
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$image</h4>
+                                                <code>mixed</code><p>
+</p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$originalSize</h4>
+                                                <code>mixed</code><p>
+</p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetSize</h4>
+                                                <code>mixed</code><p>
+</p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$axis</h4>
+                                                <code>mixed</code><p><p>h=horizontal, v = vertical</p>
+</p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_getLimit"></a>
+                        <div class="element clickable method protected method_getLimit inherited" data-toggle="collapse" data-target=".method_getLimit .collapse">
+                            <h2>getLimit get image limit. Used to set &quot;uncropable&quot; limit</h2>
+                            <pre>getLimit(string $position, int $offset) : int|null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description">
+</div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    access
+                                                </th>
+                                                <td>
+                                                                                                                                                                    <p>protected</p>
+
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$position</h4>
+                                                <code>string</code><p><p>(top|bottom|left|right)</p>
+</p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$offset</h4>
+                                                <code>int</code><p>
+</p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>int|null</code><p>
+</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_grayscaleEntropy"></a>
+                        <div class="element clickable method protected method_grayscaleEntropy inherited" data-toggle="collapse" data-target=".method_grayscaleEntropy .collapse">
+                            <h2>Calculate the entropy for this image.</h2>
+                            <pre>grayscaleEntropy(\Imagick $image) : float</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>A higher value of entropy means more noise / liveliness / color / business</p>
+</div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                    
+
+                                                                                                                                                                    
+
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$image</h4>
+                                                <code>\Imagick</code><p>
+</p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>float</code><p>
+</p>
+                                                                    </div>
+                            </div>
+                        </div>
+                                            <a id="method_colorEntropy"></a>
+                        <div class="element clickable method protected method_colorEntropy inherited" data-toggle="collapse" data-target=".method_colorEntropy .collapse">
+                            <h2>Find out the entropy for a color image</h2>
+                            <pre>colorEntropy(\Imagick $image) : float</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>If the source image is in color we need to transform RGB into a grayscale image
+so we can calculate the entropy more performant.</p>
+</div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$image</h4>
+                                                <code>\Imagick</code><p>
+</p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>float</code><p>
+</p>
+                                                                    </div>
+                            </div>
+                        </div>
                     
-                    
-                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
-                                                    <a id="property_start_time"> </a>
-                            <div class="element clickable property protected property_start_time inherited" data-toggle="collapse" data-target=".property_start_time .collapse">
-                                <h2>Timer used for profiler / debugging</h2>
-                                <pre>start_time</pre>
+                                            <h3><i class="icon-custom icon-constant"></i> Constants</h3>
+                                                    <a id="constant_CLASSIFIER_FACE"> </a>
+                            <div class="element clickable constant  constant_CLASSIFIER_FACE" data-toggle="collapse" data-target=".constant_CLASSIFIER_FACE .collapse">
+                                <h2>CLASSIFIER_FACE</h2>
+                                <pre>CLASSIFIER_FACE</pre>
                                 <div class="labels">
-                                    <span class="label">inherited</span>                                    <span class="label">static</span>                                </div>
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description">
+</div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_CLASSIFIER_PROFILE"> </a>
+                            <div class="element clickable constant  constant_CLASSIFIER_PROFILE" data-toggle="collapse" data-target=".constant_CLASSIFIER_PROFILE .collapse">
+                                <h2>CLASSIFIER_PROFILE</h2>
+                                <pre>CLASSIFIER_PROFILE</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description">
+</div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                            
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_imagePath"> </a>
+                            <div class="element clickable property protected property_imagePath" data-toggle="collapse" data-target=".property_imagePath .collapse">
+                                <h2>imagePath original image path</h2>
+                                <pre>imagePath</pre>
+                                <div class="labels">
+                                                                                                        </div>
                                 <div class="row collapse">
                                     <div class="detail-description">
                                         <div class="long_description">
@@ -597,6 +788,15 @@ and allow the image to be larger than either the width or height</h2>
                                                     </th>
                                                     <td>
                                                                                                                     
+
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        access
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>protected</p>
 
                                                                                                             </td>
                                                 </tr>
@@ -611,12 +811,12 @@ and allow the image to be larger than either the width or height</h2>
                                     </div>
                                 </div>
                             </div>
-                                                    <a id="property_originalImage"> </a>
-                            <div class="element clickable property protected property_originalImage inherited" data-toggle="collapse" data-target=".property_originalImage .collapse">
-                                <h2>originalImage</h2>
-                                <pre>originalImage</pre>
+                                                    <a id="property_safeZoneList"> </a>
+                            <div class="element clickable property protected property_safeZoneList" data-toggle="collapse" data-target=".property_safeZoneList .collapse">
+                                <h2>safeZoneList</h2>
+                                <pre>safeZoneList</pre>
                                 <div class="labels">
-                                    <span class="label">inherited</span>                                                                    </div>
+                                                                                                        </div>
                                 <div class="row collapse">
                                     <div class="detail-description">
                                         <div class="long_description">
@@ -629,6 +829,15 @@ and allow the image to be larger than either the width or height</h2>
                                                     </th>
                                                     <td>
                                                                                                                     
+
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        access
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>protected</p>
 
                                                                                                             </td>
                                                 </tr>
@@ -663,7 +872,7 @@ and allow the image to be larger than either the width or height</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Sun, 07 Jul 2013 02:25:02 +0000.<br/>
+            generated on Sun, 07 Jul 2013 05:11:26 +0000.<br/>
     </footer>
     </body>
 </html>

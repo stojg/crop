@@ -83,7 +83,7 @@ class CropFace extends CropEntropy
      *
      * @param array $faceList
      * @access private
-     * @return void
+     * @return array
      */
     protected function getSafeZoneList()
     {

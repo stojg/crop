@@ -72,16 +72,8 @@ class CropEntropy extends Crop
 
 		$originalWidth = $size['width'];
 		$originalHeight = $size['height'];
-		// This is going to be our goal for topleftY
-		$topY = 0;
-		// This is going to be our goal for topleftX
-		$leftX = 0;
-
-
-        // get left slice
+		
         $leftX = $this->slice($image, $originalWidth, $targetWidth, 'h');
-
-        // get right slice
         $topY = $this->slice($image, $originalHeight, $targetHeight, 'v');
 
 		return array('x' => $leftX, 'y' => $topY);
@@ -138,14 +130,14 @@ class CropEntropy extends Crop
             $canCutA = true;
             $canCutB = true;
 
-            $position = ($axis === 'h' ? 'left' : 'top');
-            $aLimit = $this->getLimit($position, $aTop);
+            $aPosition = ($axis === 'h' ? 'left' : 'top');
+            $aLimit = $this->getLimit($aPosition, $aTop);
             if ($aLimit !== null && $aTop + $sliceSize > $aLimit) {
                 $canCutA = false;
             }
 
-            $position = ($axis === 'h' ? 'right' : 'bottom');
-            $bLimit = $this->getLimit($position, $aBottom);
+            $bPosition = ($axis === 'h' ? 'right' : 'bottom');
+            $bLimit = $this->getLimit($bPosition, $aBottom);
             if ($bLimit !== null && $aBottom - $sliceSize < $bLimit) {
                 $canCutB = false;
             }
@@ -175,7 +167,7 @@ class CropEntropy extends Crop
     /**
      * getLimit get image limit. Used to set "uncropable" limit
      *
-     * @param strinc $position (top|bottom|left|right)
+     * @param string $position (top|bottom|left|right)
      * @param int $offset
      * @access protected
      * @return int|null
@@ -206,11 +198,11 @@ class CropEntropy extends Crop
      * getSafeZoneList
      *
      * @access protected
-     * @return void
+     * @return array
      */
     protected function getSafeZoneList()
     {
-        return null;
+        return array();
     }
 
 	/**
@@ -256,6 +248,6 @@ class CropEntropy extends Crop
 				$newHistogram[$grey] += $histogram[$idx]->getColorCount();
 			}
 		}
-		return $this->entropy($newHistogram, $this->area($image));
+		return $this->getEntropy($newHistogram, $this->area($image));
 	}
 }

@@ -21,7 +21,7 @@ class CropEntropy extends Crop
 	/**
 	 * get special offset for class
 	 *
-	 * @param Imagick $original
+	 * @param \Imagick $original
 	 * @param int $targetWidth
 	 * @param int $targetHeight
 	 * @return array
@@ -35,7 +35,7 @@ class CropEntropy extends Crop
 	/**
 	 * Get the topleftX and topleftY that will can be passed to a cropping method.
 	 *
-	 * @param Imagick $original
+	 * @param \Imagick $original
 	 * @param int $targetWidth
 	 * @param int $targetHeight
 	 * @return array
@@ -241,7 +241,7 @@ class CropEntropy extends Crop
 	 * @param \Imagick $image
 	 * @return float
 	 */
-	protected function colorEntropy(Imagick $image)
+	protected function colorEntropy(\Imagick $image)
     {
 		$histogram = $image->getImageHistogram();
 		$newHistogram = array();

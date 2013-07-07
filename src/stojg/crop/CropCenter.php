@@ -17,12 +17,12 @@ class CropCenter extends Crop
 	/**
 	 * get special offset for class
 	 *
-	 * @param Imagick $original
+	 * @param \Imagick $original
 	 * @param int $targetWidth
 	 * @param int $targetHeight
 	 * @return array
 	 */
-    protected function getSpecialOffset(Imagick $original, $targetWidth, $targetHeight)
+    protected function getSpecialOffset(\Imagick $original, $targetWidth, $targetHeight)
     {
 		return $this->getCenterOffset($original, $targetWidth, $targetHeight);
     }
@@ -30,7 +30,7 @@ class CropCenter extends Crop
 	/**
 	 * Get the cropping offset for the image based on the center of the image
 	 *
-	 * @param Imagick $image
+	 * @param \Imagick $image
 	 * @param int $targetWidth
 	 * @param int $targetHeight
 	 * @return array

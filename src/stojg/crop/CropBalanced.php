@@ -19,24 +19,24 @@ class CropBalanced extends Crop
 	/**
 	 * get special offset for class
 	 *
-	 * @param Imagick $original
+	 * @param \Imagick $original
 	 * @param int $targetWidth
 	 * @param int $targetHeight
 	 * @return array
 	 */
-    protected function getSpecialOffset(Imagick $original, $targetWidth, $targetHeight)
+    protected function getSpecialOffset(\Imagick $original, $targetWidth, $targetHeight)
     {
 		return $this->getRandomEdgeOffset($original, $targetWidth, $targetHeight);
 	}
 
 	/**
 	 *
-	 * @param Imagick $original
+	 * @param \Imagick $original
 	 * @param int $targetWidth
 	 * @param int $targetHeight
 	 * @return array
 	 */
-	protected function getRandomEdgeOffset(Imagick $original, $targetWidth, $targetHeight)
+	protected function getRandomEdgeOffset(\Imagick $original, $targetWidth, $targetHeight)
     {
 		$measureImage = clone($original);
 		// Enhance edges
@@ -129,10 +129,10 @@ class CropBalanced extends Crop
 	 * By doing random sampling from the image, find the most energetic point on the passed in
 	 * image
 	 *
-	 * @param type $image
-	 * @return type
+	 * @param \Imagick $image
+	 * @return array
 	 */
-	protected function getHighestEnergyPoint(Imagick $image)
+	protected function getHighestEnergyPoint(\Imagick $image)
     {
 		$size = $image->getImageGeometry();
 		// It's more performant doing random pixel uplook via GD

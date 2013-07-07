@@ -55,7 +55,7 @@ abstract class Crop
 	/**
 	 * Get the area in pixels for this image
 	 *
-	 * @param Imagick $image
+	 * @param \Imagick $image
 	 * @return int
 	 */
 	protected function area(\Imagick $image)
@@ -89,7 +89,7 @@ abstract class Crop
 	 * Returns width and height for resizing the image, keeping the aspect ratio
 	 * and allow the image to be larger than either the width or height
 	 *
-	 * @param Imagick $image
+	 * @param \Imagick $image
 	 * @param int $targetWidth
 	 * @param int $targetHeight
 	 * @return array
@@ -142,7 +142,7 @@ abstract class Crop
 	/**
 	 * get special offset for class
 	 *
-	 * @param Imagick $original
+	 * @param \Imagick $original
 	 * @param int $targetWidth
 	 * @param int $targetHeight
 	 * @return array

@@ -3,7 +3,7 @@
 namespace stojg\crop;
 
 /**
- * CropEntropy
+ * SlyCropEntropy
  *
  * This class finds the a position in the picture with the most energy in it.
  *
@@ -110,7 +110,7 @@ class CropEntropy extends Crop
             if (!$aSlice) {
                 $aSlice = clone($image);
                 if ($axis === 'h') {
-                    $aSlice->cropImage($sliceSize, $originalSize, $aTop, 0);
+                    $aSlice->cropImage($originalSize, $sliceSize, $aTop, 0);
                 } else {
                     $aSlice->cropImage($originalSize, $sliceSize, 0, $aTop);
                 }
@@ -120,7 +120,7 @@ class CropEntropy extends Crop
             if (!$bSlice) {
                 $bSlice = clone($image);
                 if ($axis === 'h') {
-                    $bSlice->cropImage($sliceSize, $originalSize, $aBottom - $sliceSize, 0);
+                    $bSlice->cropImage($originalSize, $sliceSize, $aBottom - $sliceSize, 0);
                 } else {
                     $bSlice->cropImage($originalSize, $sliceSize, 0, $aBottom - $sliceSize);
                 }

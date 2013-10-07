@@ -4,12 +4,17 @@
     "description": "Image cropping classes",
     "keywords": ["image"],
     "homepage": "http://github.com/stojg/crop",
-    "license": "MIT",
+    "license": "BSD-2",
     "authors": [
         {
             "name": "Stig Lindqvist",
             "email": "stojg.lindqvist@gmail.com",
             "homepage": "https://stojg.se/"
+        },
+        {
+            "name": "Julien Deniau jdeniau",
+            "email": "julien.deniau@gmail.com",
+            "homepage": "http://www.mapado.com"
         }
     ],
     "require": {

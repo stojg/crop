@@ -2,6 +2,10 @@
 
 This is a small set of image croppers that I created for testing automated cropping. 
 
+[![Build Status](https://secure.travis-ci.org/stojg/crop.png?branch=master)](http://travis-ci.org/stojg/crop)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/stojg/crop/badges/quality-score.png?s=3fb9e495961dba3ae96d96d7632236ef0227d3cb)](https://scrutinizer-ci.com/g/stojg/crop/)
+
+
 ## Requirements
 
  - PHP 5.3 with Imagick extension
@@ -50,6 +54,4 @@ If the program faces two limits, we let the entropy decide the best crop.
 
 	$center = new \stojg\crop\CropCenter($filepath);
 	$croppedImage = $center->resizeAndCrop($width, $height);
-	$thumbnailPath = 'assets/thumbs/'.$fileInfo['filename'].'-center.jpg';
-	$this->enhance($croppedImage);
-	$croppedImage->writeimage($thumbnailPath);
+	$croppedImage->writeimage('assets/thumbs/cropped-center.jpg');

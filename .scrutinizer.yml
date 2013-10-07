@@ -9,3 +9,4 @@ tools:
         filter:
             excluded_paths: ["*/Tests/*"]
     sensiolabs_security_checker: true
+    php_pdepend: true

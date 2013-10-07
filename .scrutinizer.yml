@@ -10,4 +10,3 @@ tools:
             excluded_paths: ["*/Tests/*"]
     sensiolabs_security_checker: true
     php_pdepend: true
-    php_code_coverage: true

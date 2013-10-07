@@ -4,7 +4,7 @@
     "description": "Image cropping classes",
     "keywords": ["image"],
     "homepage": "http://github.com/stojg/crop",
-    "license": "MIT",
+    "license": "BSD-2",
     "authors": [
         {
             "name": "Stig Lindqvist",

@@ -39,8 +39,8 @@ class CropBalanced extends Crop
 	protected function getRandomEdgeOffset(\Imagick $original, $targetWidth, $targetHeight)
     {
 		$measureImage = clone($original);
-		// Enhance edges
-		$measureImage->edgeimage($radius = 1);
+		// Enhance edges with radius 1
+		$measureImage->edgeimage(1);
 		// Turn image into a grayscale
 		$measureImage->modulateImage(100, 0, 100);
 		// Turn everything darker than this to pitch black

@@ -17,6 +17,7 @@ namespace stojg\crop;
  */
 class CropEntropy extends Crop
 {
+    const POTENTIAL_RATIO = 1.5;
 
 	/**
 	 * get special offset for class
@@ -126,20 +127,23 @@ class CropEntropy extends Crop
                 }
             }
 
-            // calculate limits
-            $canCutA = true;
-            $canCutB = true;
-
+            // calculate slices potential
             $aPosition = ($axis === 'h' ? 'left' : 'top');
-            $aLimit = $this->getLimit($aPosition, $aTop);
-            if ($aLimit !== null && $aTop + $sliceSize > $aLimit) {
-                $canCutA = false;
-            }
-
             $bPosition = ($axis === 'h' ? 'right' : 'bottom');
-            $bLimit = $this->getLimit($bPosition, $aBottom);
-            if ($bLimit !== null && $aBottom - $sliceSize < $bLimit) {
-                $canCutB = false;
+
+            $aPot = $this->getPotential($aPosition, $aTop, $sliceSize);
+            $bPot = $this->getPotential($bPosition, $aBottom, $sliceSize);
+
+            $canCutA = ($aPot <= 0);
+            $canCutB = ($bPot <= 0);
+
+            // if no slices are "cutable", we force if a slice has a lot of potential
+            if (!$canCutA && !$canCutB) {
+                if ($aPot * self::POTENTIAL_RATIO < $bPot) {
+                    $canCutA = true;
+                } elseif ($aPot > $bPot * self::POTENTIAL_RATIO) {
+                    $canCutB = true;
+                }
             }
 
             // if we can only cut on one side
@@ -165,36 +169,6 @@ class CropEntropy extends Crop
     }
 
     /**
-     * getLimit get image limit. Used to set "uncropable" limit
-     *
-     * @param string $position (top|bottom|left|right)
-     * @param int $offset
-     * @access protected
-     * @return int|null
-     */
-    protected function getLimit($position, $offset = 0)
-    {
-        $safeZoneList = $this->getSafeZoneList();
-
-        $v = null;
-        if (!empty($safeZoneList)) {
-            foreach ($safeZoneList as $safeZone) {
-                if ($position == 'left' || $position == 'top') {
-                    if ($safeZone[$position] >= $offset) {
-                        $v = ($v  === null ? $safeZone[$position] : min($v, $safeZone[$position]));
-                    }
-                } elseif ($position == 'right' || $position == 'bottom') {
-                    if ($safeZone[$position] <= $offset) {
-                        $v = ($v  === null ? $safeZone[$position] : max($v, $safeZone[$position]));
-                    }
-                }
-            }
-        }
-
-        return $v;
-    }
-
-    /**
      * getSafeZoneList
      *
      * @access protected
@@ -203,6 +177,46 @@ class CropEntropy extends Crop
     protected function getSafeZoneList()
     {
         return array();
+    }
+
+    /**
+     * getPotential
+     *
+     * @param mixed $position
+     * @param mixed $top
+     * @param mixed $sliceSize
+     * @access protected
+     * @return void
+     */
+    protected function getPotential($position, $top, $sliceSize)
+    {
+        $safeZoneList = $this->getSafeZoneList();
+
+        $safeRatio = 0;
+
+        if ($position == 'top' || $position == 'left') {
+            $start = $top;
+            $end = $top + $sliceSize;
+        } else {
+            $start = $top - $sliceSize;
+            $end = $top;
+        }
+
+        for ($i = $start; $i < $end; $i++) {
+            foreach ($safeZoneList as $safeZone) {
+                if ($position == 'top' || $position == 'bottom') {
+                    if ($safeZone['top'] <= $i && $safeZone['bottom'] >= $i) {
+                        $safeRatio = max($safeRatio, ($safeZone['right'] - $safeZone['left']));
+                    }
+                } else {
+                    if ($safeZone['left'] <= $i && $safeZone['right'] >= $i) {
+                        $safeRatio = max($safeRatio, ($safeZone['bottom'] - $safeZone['top']));
+                    }
+                }
+            }
+        }
+
+        return $safeRatio;
     }
 
 	/**

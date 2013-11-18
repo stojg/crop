@@ -22,6 +22,14 @@ abstract class Crop
 	 */
 	protected $originalImage = null;
 
+    /**
+     * baseDimension
+     *
+     * @var array
+     * @access protected
+     */
+    protected $baseDimension;
+
 
 	/**
 	 * Profiling method
@@ -50,6 +58,12 @@ abstract class Crop
 	public function __construct($imagePath)
     {
 		$this->originalImage = new \Imagick($imagePath);
+
+        // set base image dimensions
+		$this->setBaseDimensions(
+            $this->originalImage->getImageWidth(),
+            $this->originalImage->getImageHeight()
+        );
 	}
 	
 	/**
@@ -138,6 +152,39 @@ abstract class Crop
 		// $value is always 0.0 or negative, so transform into positive scalar value
 		return -$value;
 	}
+
+    /**
+     * setBaseDimensions
+     *
+     * @param int $width
+     * @param int $height
+     * @access protected
+     * @return $this
+     */
+    protected function setBaseDimensions($width, $height)
+    {
+        $this->baseDimension = ['width' => $width, 'height' => $height];
+        return $this;
+    }
+
+    /**
+     * getBaseDimension
+     *
+     * @param string $key width|height
+     * @access protected
+     * @return int
+     */
+    protected function getBaseDimension($key)
+    {
+        if (isset($this->baseDimension)) {
+            return $this->baseDimension[$key];
+        } elseif ($key == 'width') {
+            return $this->originalImage->getImageWidth();
+        } else {
+            return $this->originalImage->getImageHeight();
+        }
+    }
+
 
 	/**
 	 * get special offset for class

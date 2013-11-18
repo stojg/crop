@@ -81,14 +81,23 @@ class CropFace extends CropEntropy
     /**
      * getSafeZoneList
      *
-     * @param array $faceList
      * @access private
      * @return array
      */
     protected function getSafeZoneList()
     {
         if (!isset($this->safeZoneList)) {
+            $this->safeZoneList = [];
+        }
+        // the local key is the current image width-height
+        $key = $this->originalImage->getImageWidth() . '-' . $this->originalImage->getImageHeight();
+
+        if (!isset($this->safeZoneList[$key])) {
             $faceList = $this->getFaceList();
+
+            // getFaceList works on the main image, so we use a ratio between main/current image
+            $xRatio = $this->getBaseDimension('width') / $this->originalImage->getImageWidth();
+            $yRatio = $this->getBaseDimension('height') / $this->originalImage->getImageHeight();
 
             $safeZoneList = array();
             foreach ($faceList as $face) {
@@ -101,11 +110,16 @@ class CropFace extends CropEntropy
                     'bottom' => $face['y'] + $face['h'] + $hh
                 );
 
-                $safeZoneList[] = $safeZone;
+                $safeZoneList[] = [
+                    'left' => round($safeZone['left'] / $xRatio),
+                    'right' => round($safeZone['right'] / $xRatio),
+                    'top' => round($safeZone['top'] / $yRatio),
+                    'bottom' => round($safeZone['bottom'] / $yRatio),
+                ];
             }
-            $this->safeZoneList = $safeZoneList;
+            $this->safeZoneList[$key] = $safeZoneList;
         }
 
-        return $this->safeZoneList;
+        return $this->safeZoneList[$key];
     }
 }

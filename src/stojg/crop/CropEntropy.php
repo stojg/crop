@@ -108,7 +108,7 @@ class CropEntropy extends Crop
 
             // Make a top slice image
             if (!$aSlice) {
-                $aSlice = clone($image);
+                $aSlice = clone $image;
                 if ($axis === 'h') {
                     $aSlice->cropImage($originalSize, $sliceSize, $aTop, 0);
                 } else {
@@ -118,7 +118,7 @@ class CropEntropy extends Crop
 
             // Make a bottom slice image
             if (!$bSlice) {
-                $bSlice = clone($image);
+                $bSlice = clone $image;
                 if ($axis === 'h') {
                     $bSlice->cropImage($originalSize, $sliceSize, $aBottom - $sliceSize, 0);
                 } else {

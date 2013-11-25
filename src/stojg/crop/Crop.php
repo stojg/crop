@@ -143,7 +143,8 @@ abstract class Crop
     {
 		$value = 0.0;
 
-		for ($idx = 0; $idx < count($histogram); $idx++) {
+        $colors = count($histogram);
+		for ($idx = 0; $idx < $colors; $idx++) {
 			// calculates the percentage of pixels having this color value
 			$p = $histogram[$idx]->getColorCount() / $area;
 			// A common way of representing entropy in scalar

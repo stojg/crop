@@ -253,7 +253,8 @@ class CropEntropy extends Crop
 		$newHistogram = array();
 
 		// Translates a color histogram into a bw histogram
-		for ($idx = 0; $idx < count($histogram); $idx++) {
+        $colors = count($histogram);
+		for ($idx = 0; $idx < $colors; $idx++) {
 			$colors = $histogram[$idx]->getColor();
 			$grey = $this->rgb2bw($colors['r'], $colors['g'], $colors['b']);
 			if (!isset($newHistogram[$grey])) {

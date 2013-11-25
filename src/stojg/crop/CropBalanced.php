@@ -102,7 +102,8 @@ class CropBalanced extends Crop
         $centerY = 0;
 
 		// Calulate the mean weighted center x and y
-		for ($idx=0; $idx < count($points); $idx++) {
+		$totalPoints = count($points);
+		for ($idx=0; $idx < $totalPoints; $idx++) {
 			$centerX += $points[$idx]['x'] * ($points[$idx]['sum'] / $totalWeight);
 			$centerY += $points[$idx]['y'] * ($points[$idx]['sum'] / $totalWeight);
 		}
@@ -136,8 +137,11 @@ class CropBalanced extends Crop
     {
 		$size = $image->getImageGeometry();
 		// It's more performant doing random pixel uplook via GD
-		$image->writeimage('/tmp/image');
-		$im = imagecreatefromjpeg('/tmp/image');
+
+		$tmpFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'image' . rand();
+
+		$image->writeimage($tmpFile);
+		$im = imagecreatefromjpeg($tmpFile);
 		$xcenter = 0;
 		$ycenter = 0;
 		$sum = 0;

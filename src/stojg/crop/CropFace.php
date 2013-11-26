@@ -4,7 +4,7 @@ namespace stojg\crop;
 
 /**
  * CropFace
- * 
+ *
  * This class will try to find the most interesting point in the image by trying to find a face and
  * center the crop on that
  *
@@ -18,7 +18,7 @@ class CropFace extends CropEntropy
 
     /**
      * imagePath original image path
-     * 
+     *
      * @var mixed
      * @access protected
      */
@@ -26,19 +26,19 @@ class CropFace extends CropEntropy
 
     /**
      * safeZoneList
-     * 
+     *
      * @var array
      * @access protected
      */
     protected $safeZoneList;
 
-	/**
-	 *
-	 * @param string $imagePath
-	 */
-	public function __construct($imagePath)
+    /**
+     *
+     * @param string $imagePath
+     */
+    public function __construct($imagePath)
     {
-		$this->imagePath = $imagePath;
+        $this->imagePath = $imagePath;
         parent::__construct($imagePath);
     }
 
@@ -75,6 +75,7 @@ class CropFace extends CropEntropy
     protected function getFaceListFromClassifier($classifier)
     {
         $faceList = face_detect($this->imagePath, __DIR__ . $classifier);
+
         return $faceList;
     }
 

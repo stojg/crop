@@ -55,9 +55,22 @@ abstract class Crop
      * @param string $imagePath - The path to an image to load. Paths can include wildcards for file names,
      *							  or can be URLs.
      */
-    public function __construct($imagePath)
+    public function __construct($imagePath = null)
     {
-        $this->originalImage = new \Imagick($imagePath);
+        if ($imagePath) {
+            $this->setImage(new \Imagick($imagePath));
+        }
+    }
+
+    /**
+     * Sets the object Image to be croped
+     *
+     * @param  \Imagick $image
+     * @return null
+     */
+    public function setImage(\Imagick $image)
+    {
+        $this->originalImage = $image;
 
         // set base image dimensions
         $this->setBaseDimensions(

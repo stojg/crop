@@ -179,7 +179,7 @@ abstract class Crop
      */
     protected function setBaseDimensions($width, $height)
     {
-        $this->baseDimension = ['width' => $width, 'height' => $height];
+        $this->baseDimension = array('width' => $width, 'height' => $height);
 
         return $this;
     }

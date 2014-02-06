@@ -69,13 +69,8 @@ class CropEntropy extends Crop
         $image = clone $originalImage;
         $image->blurImage(3, 2);
 
-        $size = $image->getImageGeometry();
-
-        $originalWidth = $size['width'];
-        $originalHeight = $size['height'];
-
-        $leftX = $this->slice($image, $originalWidth, $targetWidth, 'h');
-        $topY = $this->slice($image, $originalHeight, $targetHeight, 'v');
+        $leftX = $this->slice($image,$targetWidth, 'h');
+        $topY = $this->slice($image,$targetHeight, 'v');
 
         return array('x' => $leftX, 'y' => $topY);
     }
@@ -85,87 +80,53 @@ class CropEntropy extends Crop
      * slice
      *
      * @param mixed $image
-     * @param mixed $originalSize
      * @param mixed $targetSize
      * @param mixed $axis         h=horizontal, v = vertical
      * @access protected
-     * @return void
+     * @return int
      */
-    protected function slice($image, $originalSize, $targetSize, $axis)
+    protected function slice($image, $targetSize, $axis)
     {
-        $aSlice = null;
-        $bSlice = null;
-
-        // Just an arbitrary size of slice size
-        $sliceSize = ceil(($originalSize - $targetSize) / 25);
-
-        $aBottom = $originalSize;
-        $aTop = 0;
-
-        // while there still are uninvestigated slices of the image
-        while ($aBottom - $aTop > $targetSize) {
-            // Make sure that we don't try to slice outside the picture
-            $sliceSize = min($aBottom - $aTop - $targetSize, $sliceSize);
-
-            // Make a top slice image
-            if (!$aSlice) {
-                $aSlice = clone $image;
-                if ($axis === 'h') {
-                    $aSlice->cropImage($originalSize, $sliceSize, $aTop, 0);
-                } else {
-                    $aSlice->cropImage($originalSize, $sliceSize, 0, $aTop);
-                }
-            }
-
-            // Make a bottom slice image
-            if (!$bSlice) {
-                $bSlice = clone $image;
-                if ($axis === 'h') {
-                    $bSlice->cropImage($originalSize, $sliceSize, $aBottom - $sliceSize, 0);
-                } else {
-                    $bSlice->cropImage($originalSize, $sliceSize, 0, $aBottom - $sliceSize);
-                }
-            }
-
-            // calculate slices potential
-            $aPosition = ($axis === 'h' ? 'left' : 'top');
-            $bPosition = ($axis === 'h' ? 'right' : 'bottom');
-
-            $aPot = $this->getPotential($aPosition, $aTop, $sliceSize);
-            $bPot = $this->getPotential($bPosition, $aBottom, $sliceSize);
-
-            $canCutA = ($aPot <= 0);
-            $canCutB = ($bPot <= 0);
-
-            // if no slices are "cutable", we force if a slice has a lot of potential
-            if (!$canCutA && !$canCutB) {
-                if ($aPot * self::POTENTIAL_RATIO < $bPot) {
-                    $canCutA = true;
-                } elseif ($aPot > $bPot * self::POTENTIAL_RATIO) {
-                    $canCutB = true;
-                }
-            }
-
-            // if we can only cut on one side
-            if ($canCutA xor $canCutB) {
-                if ($canCutA) {
-                    $aTop += $sliceSize;
-                    $aSlice = null;
-                } else {
-                    $aBottom -= $sliceSize;
-                    $bSlice = null;
-                }
-            } elseif ($this->grayscaleEntropy($aSlice) < $this->grayscaleEntropy($bSlice)) {
-                // bSlice has more entropy, so remove aSlice and bump aTop down
-                $aTop += $sliceSize;
-                $aSlice = null;
+        $rank = array();
+        $imageSize = $image->getImageGeometry();
+        $originalSize = ($axis=='h'?$imageSize['width']:$imageSize['height']);
+        $longSize = ($axis=='h'?$imageSize['height']:$imageSize['width']);
+        if($originalSize == $targetSize)
+        {
+            return 0;
+        }
+        $numberOfSlices = 25; // Arbitrary number, maybe base it on image dimensions
+        $sliceSize = ceil(($originalSize) / $numberOfSlices);
+        // How many slices out of the ranked slices we need to get our target width.
+        $requiredSlices = ceil($targetSize / $sliceSize);
+        $start = 0;
+        while($start < $originalSize)
+        {
+            $slice = clone $image;
+            if ($axis === 'h') {
+                $slice->cropImage($sliceSize, $longSize, $start, 0);
             } else {
-                $aBottom -= $sliceSize;
-                $bSlice = null;
+                $slice->cropImage($longSize, $sliceSize, 0, $start);
+            }
+            $rank[] = array('offset'=>$start, 'entropy' => $this->grayscaleEntropy($slice));
+            $start += $sliceSize;
+        }
+        $max = 0;
+        $maxIndex = 0;
+        for($i = 0; $i < $numberOfSlices-$requiredSlices; $i++)
+        {
+            $temp = 0;
+            for($j = 0; $j < $requiredSlices; $j++)
+            {
+                $temp+= $rank[$i+$j]['entropy'];
+            }
+            if($temp>$max)
+            {
+                $maxIndex = $i;
+                $max = $temp;
             }
         }
-
-        return $aTop;
+        return $rank[$maxIndex]['offset'];
     }
 
     /**

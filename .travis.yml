@@ -1,0 +1,6 @@
+language: php
+before_script:
+  - printf "\n" | pecl install imagick
+php:
+  - 5.5
+  - 5.4

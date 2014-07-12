@@ -57,10 +57,9 @@ class CropEntropy extends Crop
     /**
      * Get the offset of where the crop should start
      *
-     * @param  \Imagick $image
      * @param  int      $targetHeight
      * @param  int      $targetHeight
-     * @param  int      $sliceSize
+     * @param integer $targetWidth
      * @return array
      */
     protected function getOffsetFromEntropy(\Imagick $originalImage, $targetWidth, $targetHeight)
@@ -87,7 +86,7 @@ class CropEntropy extends Crop
      * @param mixed $image
      * @param mixed $originalSize
      * @param mixed $targetSize
-     * @param mixed $axis         h=horizontal, v = vertical
+     * @param string $axis         h=horizontal, v = vertical
      * @access protected
      * @return void
      */
@@ -182,7 +181,7 @@ class CropEntropy extends Crop
     /**
      * getPotential
      *
-     * @param mixed $position
+     * @param string $position
      * @param mixed $top
      * @param mixed $sliceSize
      * @access protected

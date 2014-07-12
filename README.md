@@ -8,7 +8,8 @@ This is a small set of image croppers that I created for testing automated cropp
 
 ## Requirements
 
- - PHP 5.3 with Imagick extension
+ - PHP 5.3
+ - Imagemagick where the default colorspace being sRGB (ver 6.7.5-5 or higher)
 
 ## Description
 

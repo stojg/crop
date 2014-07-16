@@ -139,7 +139,20 @@ class CropBalanced extends Crop
         // It's more performant doing random pixel uplook via GD
         $tmpFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'image' . rand();
         $image->writeimage($tmpFile);
-        $im = imagecreatefromjpeg($tmpFile);
+        // Get type of image and create a correct resource
+        $imageSize = getimagesize($tmpFile);
+        if($imageSize[2] === IMAGETYPE_GIF) {
+            $im = imagecreatefromgif($tmpFile);
+        }
+        elseif($imageSize[2] === IMAGETYPE_JPEG || $imageSize[2] === IMAGETYPE_JPEG2000) {
+            $im = imagecreatefromjpeg($tmpFile);
+        }
+        elseif($imageSize[2] === IMAGETYPE_PNG) {
+            $im = imagecreatefrompng($tmpFile);
+        }
+        else {
+            die('Could not handle this type of file');
+        }
         $xcenter = 0;
         $ycenter = 0;
         $sum = 0;

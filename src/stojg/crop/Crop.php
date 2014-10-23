@@ -106,7 +106,7 @@ abstract class Crop
         // Resize the image
         $this->originalImage->resizeImage($crop['width'], $crop['height'], \Imagick::FILTER_CUBIC, .5);
         // Get the offset for cropping the image further
-        $offset = $this->getSpecialOffset($this->originalImage, $targetWidth, $targetHeight);
+        $offset = $this->getSpecialOffset($this->originalImage, $crop['width'], $crop['height']);
         // Crop the image
         $this->originalImage->cropImage($targetWidth, $targetHeight, $offset['x'], $offset['y']);
 
@@ -125,7 +125,7 @@ abstract class Crop
     protected function getSafeResizeOffset(\Imagick $image, $targetWidth, $targetHeight)
     {
         $source = $image->getImageGeometry();
-        if (($source['width'] / $source['height']) < ($targetWidth / $targetHeight)) {
+        if (0 == $targetHeight || ($source['width'] / $source['height']) < ($targetWidth / $targetHeight)) {
             $scale = $source['width'] / $targetWidth;
         } else {
             $scale = $source['height'] / $targetHeight;

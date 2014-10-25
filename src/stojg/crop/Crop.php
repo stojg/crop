@@ -23,6 +23,20 @@ abstract class Crop
     protected $originalImage = null;
 
     /**
+     * Filter to use when resizing:
+     * http://php.net/manual/en/imagick.constants.php#imagick.constants.filters
+     * @var int
+     */
+    protected $filter = \Imagick::FILTER_CUBIC;
+
+    /**
+     * Blur to use when resizing:
+     * http://php.net/manual/en/imagick.resizeimage.php
+     * @var float
+     */
+    protected $blur = 0.5;
+
+    /**
      * baseDimension
      *
      * @var array
@@ -52,13 +66,18 @@ abstract class Crop
 
     /**
      *
-     * @param string $imagePath - The path to an image to load. Paths can include wildcards for file names,
-     *							  or can be URLs.
+     * @param string|\Imagick $imagePath - The path to an image to load or an
+     *                        Imagick instance. Paths can include wildcards for
+     *                        file names, or can be URLs.
      */
     public function __construct($imagePath = null)
     {
         if ($imagePath) {
-            $this->setImage(new \Imagick($imagePath));
+            if(is_string($imagePath)) {
+                $this->setImage(new \Imagick($imagePath));
+            } else {
+                $this->setImage($imagePath);
+            }
         }
     }
 
@@ -66,7 +85,7 @@ abstract class Crop
      * Sets the object Image to be croped
      *
      * @param  \Imagick $image
-     * @return null
+     * @return Crop
      */
     public function setImage(\Imagick $image)
     {
@@ -77,6 +96,7 @@ abstract class Crop
             $this->originalImage->getImageWidth(),
             $this->originalImage->getImageHeight()
         );
+        return $this;
     }
 
     /**
@@ -93,6 +113,52 @@ abstract class Crop
     }
 
     /**
+     * Get the filter value to use for resizeImage call
+     * http://php.net/manual/en/imagick.constants.php#imagick.constants.filters
+     *
+     * @return int
+     */
+    public function getFilter()
+    {
+        return $this->filter;
+    }
+
+    /**
+     * Set the filter value to use for resizeImage call
+     * http://php.net/manual/en/imagick.constants.php#imagick.constants.filters
+     *
+     * @return Crop
+     */
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
+        return $this;
+    }
+
+    /**
+     * Get the blur value to use for resizeImage call
+     * http://php.net/manual/en/imagick.resizeimage.php
+     *
+     * @return float
+     */
+    public function getBlur()
+    {
+        return $this->blur;
+    }
+
+    /**
+     * Set the blur value to use for resizeImage call:
+     * http://php.net/manual/en/imagick.resizeimage.php
+     *
+     * @return Crop
+     */
+    public function setBlur($blur)
+    {
+        $this->blur = $blur;
+        return $this;
+    }
+
+    /**
      * Resize and crop the image so it dimensions matches $targetWidth and $targetHeight
      *
      * @param  int              $targetWidth
@@ -104,9 +170,9 @@ abstract class Crop
         // First get the size that we can use to safely trim down the image without cropping any sides
         $crop = $this->getSafeResizeOffset($this->originalImage, $targetWidth, $targetHeight);
         // Resize the image
-        $this->originalImage->resizeImage($crop['width'], $crop['height'], \Imagick::FILTER_CUBIC, .5);
+        $this->originalImage->resizeImage($crop['width'], $crop['height'], $this->getFilter(), $this->getBlur());
         // Get the offset for cropping the image further
-        $offset = $this->getSpecialOffset($this->originalImage, $crop['width'], $crop['height']);
+        $offset = $this->getSpecialOffset($this->originalImage, $targetWidth, $targetHeight);
         // Crop the image
         $this->originalImage->cropImage($targetWidth, $targetHeight, $offset['x'], $offset['y']);
 

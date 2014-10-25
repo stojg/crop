@@ -23,6 +23,20 @@ abstract class Crop
     protected $originalImage = null;
 
     /**
+     * Filter to use when resizing:
+     * http://php.net/manual/en/imagick.constants.php#imagick.constants.filters
+     * @var int
+     */
+    protected $filter = \Imagick::FILTER_CUBIC;
+
+    /**
+     * Blur to use when resizing:
+     * http://php.net/manual/en/imagick.resizeimage.php
+     * @var float
+     */
+    protected $blur = 0.5;
+
+    /**
      * baseDimension
      *
      * @var array
@@ -99,6 +113,52 @@ abstract class Crop
     }
 
     /**
+     * Get the filter value to use for resizeImage call
+     * http://php.net/manual/en/imagick.constants.php#imagick.constants.filters
+     *
+     * @return int
+     */
+    public function getFilter()
+    {
+        return $this->filter;
+    }
+
+    /**
+     * Set the filter value to use for resizeImage call
+     * http://php.net/manual/en/imagick.constants.php#imagick.constants.filters
+     *
+     * @return Crop
+     */
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
+        return $this;
+    }
+
+    /**
+     * Get the blur value to use for resizeImage call
+     * http://php.net/manual/en/imagick.resizeimage.php
+     *
+     * @return float
+     */
+    public function getBlur()
+    {
+        return $this->blur;
+    }
+
+    /**
+     * Set the blur value to use for resizeImage call:
+     * http://php.net/manual/en/imagick.resizeimage.php
+     *
+     * @return Crop
+     */
+    public function setBlur($blur)
+    {
+        $this->blur = $blur;
+        return $this;
+    }
+
+    /**
      * Resize and crop the image so it dimensions matches $targetWidth and $targetHeight
      *
      * @param  int              $targetWidth
@@ -110,7 +170,7 @@ abstract class Crop
         // First get the size that we can use to safely trim down the image without cropping any sides
         $crop = $this->getSafeResizeOffset($this->originalImage, $targetWidth, $targetHeight);
         // Resize the image
-        $this->originalImage->resizeImage($crop['width'], $crop['height'], \Imagick::FILTER_CUBIC, .5);
+        $this->originalImage->resizeImage($crop['width'], $crop['height'], $this->getFilter(), $this->getBlur());
         // Get the offset for cropping the image further
         $offset = $this->getSpecialOffset($this->originalImage, $targetWidth, $targetHeight);
         // Crop the image

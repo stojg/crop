@@ -106,7 +106,7 @@ abstract class Crop
         // Resize the image
         $this->originalImage->resizeImage($crop['width'], $crop['height'], \Imagick::FILTER_CUBIC, .5);
         // Get the offset for cropping the image further
-        $offset = $this->getSpecialOffset($this->originalImage, $crop['width'], $crop['height']);
+        $offset = $this->getSpecialOffset($this->originalImage, $targetWidth, $targetHeight);
         // Crop the image
         $this->originalImage->cropImage($targetWidth, $targetHeight, $offset['x'], $offset['y']);
 

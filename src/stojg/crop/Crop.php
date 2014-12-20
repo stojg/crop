@@ -37,6 +37,13 @@ abstract class Crop
     protected $blur = 0.5;
 
     /**
+     * Whether image data should be rotated according to EXIF metadata:
+     * http://www.imagemagick.org/script/command-line-options.php#auto-orient
+     * @var boolean
+     */
+    protected $autoOrient = true;
+
+    /**
      * baseDimension
      *
      * @var array
@@ -159,6 +166,29 @@ abstract class Crop
     }
 
     /**
+     * Get whether image data should be rotated according to EXIF metadata:
+     * http://www.imagemagick.org/script/command-line-options.php#auto-orient
+     *
+     * @return boolean
+     */
+    public function getAutoOrient()
+    {
+        return $this->autoOrient;
+    }
+
+    /**
+     * Set whether image data should be rotated according to EXIF metadata:
+     * http://www.imagemagick.org/script/command-line-options.php#auto-orient
+     *
+     * @return Crop
+     */
+    public function setAutoOrient($autoOrient)
+    {
+        $this->autoOrient = $autoOrient;
+        return $this;
+    }
+
+    /**
      * Resize and crop the image so it dimensions matches $targetWidth and $targetHeight
      *
      * @param  int              $targetWidth
@@ -167,7 +197,9 @@ abstract class Crop
      */
     public function resizeAndCrop($targetWidth, $targetHeight)
     {
-        $this->autoOrient();
+        if ($this->getAutoOrient()) {
+            $this->autoOrient();
+        }
 
         // First get the size that we can use to safely trim down the image without cropping any sides
         $crop = $this->getSafeResizeOffset($this->originalImage, $targetWidth, $targetHeight);
@@ -269,7 +301,6 @@ abstract class Crop
             return $this->originalImage->getImageHeight();
         }
     }
-
 
     /**
      * Applies EXIF orientation metadata to pixel data and removes the EXIF rotation

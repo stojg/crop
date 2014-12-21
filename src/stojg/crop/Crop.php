@@ -37,6 +37,13 @@ abstract class Crop
     protected $blur = 0.5;
 
     /**
+     * Whether image data should be rotated according to EXIF metadata:
+     * http://www.imagemagick.org/script/command-line-options.php#auto-orient
+     * @var boolean
+     */
+    protected $autoOrient = true;
+
+    /**
      * baseDimension
      *
      * @var array
@@ -159,6 +166,29 @@ abstract class Crop
     }
 
     /**
+     * Get whether image data should be rotated according to EXIF metadata:
+     * http://www.imagemagick.org/script/command-line-options.php#auto-orient
+     *
+     * @return boolean
+     */
+    public function getAutoOrient()
+    {
+        return $this->autoOrient;
+    }
+
+    /**
+     * Set whether image data should be rotated according to EXIF metadata:
+     * http://www.imagemagick.org/script/command-line-options.php#auto-orient
+     *
+     * @return Crop
+     */
+    public function setAutoOrient($autoOrient)
+    {
+        $this->autoOrient = $autoOrient;
+        return $this;
+    }
+
+    /**
      * Resize and crop the image so it dimensions matches $targetWidth and $targetHeight
      *
      * @param  int              $targetWidth
@@ -167,6 +197,10 @@ abstract class Crop
      */
     public function resizeAndCrop($targetWidth, $targetHeight)
     {
+        if ($this->getAutoOrient()) {
+            $this->autoOrient();
+        }
+
         // First get the size that we can use to safely trim down the image without cropping any sides
         $crop = $this->getSafeResizeOffset($this->originalImage, $targetWidth, $targetHeight);
         // Resize the image
@@ -266,6 +300,30 @@ abstract class Crop
         } else {
             return $this->originalImage->getImageHeight();
         }
+    }
+
+    /**
+     * Applies EXIF orientation metadata to pixel data and removes the EXIF rotation
+     *
+     * @access protected
+     */
+    protected function autoOrient()
+    {
+        // apply EXIF orientation to pixel data
+        switch ($this->originalImage->getImageOrientation()) { 
+            case \Imagick::ORIENTATION_BOTTOMRIGHT: 
+                $this->originalImage->rotateimage('#000', 180); // rotate 180 degrees 
+                break; 
+            case \Imagick::ORIENTATION_RIGHTTOP: 
+                $this->originalImage->rotateimage('#000', 90); // rotate 90 degrees CW 
+                break; 
+            case \Imagick::ORIENTATION_LEFTBOTTOM: 
+                $this->originalImage->rotateimage('#000', -90); // rotate 90 degrees CCW 
+                break; 
+        } 
+
+        // reset EXIF orientation
+        $this->originalImage->setImageOrientation(\Imagick::ORIENTATION_TOPLEFT); 
     }
 
     /**

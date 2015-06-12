@@ -52,7 +52,8 @@ If the program faces two limits, we let the entropy decide the best crop.
 
 
 ## Usage
-
-	$center = new \stojg\crop\CropCenter($filepath);
-	$croppedImage = $center->resizeAndCrop($width, $height);
-	$croppedImage->writeimage('assets/thumbs/cropped-center.jpg');
+``` php
+$center = new \stojg\crop\CropCenter($filepath);
+$croppedImage = $center->resizeAndCrop($width, $height);
+$croppedImage->writeimage('assets/thumbs/cropped-center.jpg');
+```

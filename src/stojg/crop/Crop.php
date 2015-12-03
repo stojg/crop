@@ -80,7 +80,7 @@ abstract class Crop
     public function __construct($imagePath = null)
     {
         if ($imagePath) {
-            if(is_string($imagePath)) {
+            if (is_string($imagePath)) {
                 $this->setImage(new \Imagick($imagePath));
             } else {
                 $this->setImage($imagePath);
@@ -310,20 +310,20 @@ abstract class Crop
     protected function autoOrient()
     {
         // apply EXIF orientation to pixel data
-        switch ($this->originalImage->getImageOrientation()) { 
-            case \Imagick::ORIENTATION_BOTTOMRIGHT: 
-                $this->originalImage->rotateimage('#000', 180); // rotate 180 degrees 
-                break; 
-            case \Imagick::ORIENTATION_RIGHTTOP: 
-                $this->originalImage->rotateimage('#000', 90); // rotate 90 degrees CW 
-                break; 
-            case \Imagick::ORIENTATION_LEFTBOTTOM: 
-                $this->originalImage->rotateimage('#000', -90); // rotate 90 degrees CCW 
-                break; 
-        } 
+        switch ($this->originalImage->getImageOrientation()) {
+            case \Imagick::ORIENTATION_BOTTOMRIGHT:
+                $this->originalImage->rotateimage('#000', 180); // rotate 180 degrees
+                break;
+            case \Imagick::ORIENTATION_RIGHTTOP:
+                $this->originalImage->rotateimage('#000', 90); // rotate 90 degrees CW
+                break;
+            case \Imagick::ORIENTATION_LEFTBOTTOM:
+                $this->originalImage->rotateimage('#000', -90); // rotate 90 degrees CCW
+                break;
+        }
 
         // reset EXIF orientation
-        $this->originalImage->setImageOrientation(\Imagick::ORIENTATION_TOPLEFT); 
+        $this->originalImage->setImageOrientation(\Imagick::ORIENTATION_TOPLEFT);
     }
 
     /**

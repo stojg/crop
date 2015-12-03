@@ -58,7 +58,6 @@ class CropBalanced extends Crop
      */
     public function getOffsetBalanced($targetWidth, $targetHeight)
     {
-
         $size = $this->originalImage->getImageGeometry();
 
         $points = array();

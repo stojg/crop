@@ -18,9 +18,11 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.6.0",
+		"ext-imagick": "*"
     },
-    "autoload": {
-        "psr-0": { "stojg\\crop": "src/" }
+	"autoload": {"psr-0": {"": "src"}},
+    "require-dev": {
+        "phpspec/phpspec": "^2.4"
     }
 }

@@ -2,29 +2,32 @@
 
 namespace Stojg\Crop;
 
+use Imagick;
+use ImagickPixel;
+
 class CropEntropy
 {
     /**
-     * @var \Imagick
+     * @var Imagick
      */
     protected $image = null;
 
     /**
      * CropEntropy constructor
      *
-     * @param \Imagick|null $image
+     * @param Imagick|null $image
      */
-    public function __construct(\Imagick $image = null)
+    public function __construct(Imagick $image = null)
     {
         if ($image !== null) {
             $this->image = $image;
         } else {
-            $this->image = new \Imagick();
+            $this->image = new Imagick();
         }
     }
 
     /**
-     * @return \Imagick
+     * @return Imagick
      */
     public function getImage()
     {
@@ -40,6 +43,22 @@ class CropEntropy
     {
         $size = $this->image->getImageGeometry();
         return $size['height'] * $size['width'];
+    }
+
+    /**
+     * @param CropEntropy $b
+     * @return int
+     */
+    public function compare(CropEntropy $b)
+    {
+        $aValue = $this->getGrayScaleEntropy();
+        $bValue = $b->getGrayScaleEntropy();
+
+        if ($aValue == $bValue) {
+            return 0;
+        }
+
+        return ($aValue < $bValue) ? -1 : 1;
     }
 
     /**
@@ -60,7 +79,7 @@ class CropEntropy
 
     /**
      *
-     * @param  \ImagickPixel[] $histogram
+     * @param  ImagickPixel[] $histogram
      * @param  int $area
      * @return float
      */
@@ -75,5 +94,17 @@ class CropEntropy
         }
         // $value is always 0.0 or negative, so transform into positive scalar value
         return -$value;
+    }
+
+    /**
+     * @param int $width - The width of the region to be extracted
+     * @param int $height - The height of the region to be extracted
+     * @param int $x - X-coordinate of the top-left corner of the region to be extracted
+     * @param int $y -Y-coordinate of the top-left corner of the region to be extracted
+     * @return CropEntropy
+     */
+    public function getRegion($width, $height, $x, $y)
+    {
+        return new CropEntropy($this->image->getImageRegion($width, $height, $x, $y));
     }
 }

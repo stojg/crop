@@ -13,12 +13,12 @@ class CropEntropySpec extends ObjectBehavior
     }
 
     function it_can_recieve_imagemagic_object_on_construct() {
-        $this->beConstructedWith(new \Imagick());
+        $this->beConstructedWith(new \Imagick('spec/Stojg/Crop/fixtures/not-a-image.txt'));
         $this->shouldHaveType('Stojg\Crop\CropEntropy');
+
     }
 
     function it_cannot_recieve_non_imagemagic_on_construct() {
-        $this->beConstructedWith("asdds");
-        $this->shouldHaveType('Stojg\Crop\CropEntropy');
+        $this->getImagick()->shouldHaveType('Imagick');
     }
 }

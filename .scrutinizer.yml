@@ -1,13 +1,17 @@
 tools:
-    php_cs_fixer: true
+    php_cs_fixer:
+        config: { level: psr2 }
+        filter:
+          paths: ["spec/*"]
     php_code_sniffer:
         config:
-            standard: PSR1
+            standard: PSR2
+        filter:
+            paths: ["spec/*"]
     php_mess_detector: true
     php_cpd: true
     php_analyzer:
         filter:
-            excluded_paths: ["*/Tests/*"]
+            excluded_paths: ["spec/*"]
     sensiolabs_security_checker: true
     php_pdepend: true
-    php_code_coverage: true

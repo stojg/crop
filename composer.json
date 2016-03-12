@@ -5,18 +5,6 @@
     "keywords": ["image"],
     "homepage": "http://github.com/stojg/crop",
     "license": "BSD-2",
-    "authors": [
-        {
-            "name": "Stig Lindqvist",
-            "email": "stojg.lindqvist@gmail.com",
-            "homepage": "https://stojg.se/"
-        },
-        {
-            "name": "Julien Deniau jdeniau",
-            "email": "julien.deniau@gmail.com",
-            "homepage": "http://www.mapado.com"
-        }
-    ],
     "require": {
         "php": ">=5.6.0",
 		"ext-imagick": "*"

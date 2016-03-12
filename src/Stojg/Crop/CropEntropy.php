@@ -16,7 +16,7 @@ class CropEntropy
      */
     public function __construct(\Imagick $image = null)
     {
-        if($image !== null) {
+        if ($image !== null) {
             $this->imagick = $image;
         } else {
             $this->imagick = new \Imagick();

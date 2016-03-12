@@ -1,6 +1,6 @@
 FROM php:5.6-cli
 RUN apt-get update \
-    && apt-get install -y libmagickwand-dev libmagickcore-dev \
+    && apt-get install -y libmagickwand-dev libmagickcore-dev git zip unzip \
     && pecl channel-update pecl.php.net \
     && pecl install imagick \
     && docker-php-ext-enable imagick \
@@ -9,4 +9,5 @@ RUN apt-get update \
     && php composer-setup.php \
     && php -r "unlink('composer-setup.php');" \
     && mv composer.phar /usr/bin/composer
+RUN echo "date.timezone = UTC" > /usr/local/etc/php/php.ini
 WORKDIR /var/workspace

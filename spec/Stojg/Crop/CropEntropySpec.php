@@ -18,7 +18,7 @@ class CropEntropySpec extends ObjectBehavior
 
     }
 
-    function it_cannot_recieve_non_imagemagic_on_construct() {
+    function it_can_return_an_imagick_object() {
         $this->getImagick()->shouldHaveType('Imagick');
     }
 }

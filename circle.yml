@@ -1,0 +1,16 @@
+machine:
+  php:
+    version: 5.6.14
+
+dependencies:
+  pre:
+    - yes '' | pecl install -f imagick
+  override:
+    - composer install --prefer-dist --no-interaction
+
+test:
+  override:
+    - ./vendor/bin/phpspec run --format=tap
+    - ./vendor/bin/phpspec run --format=junit > $CIRCLE_TEST_REPORTS/junit.xml
+
+

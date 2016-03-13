@@ -44,9 +44,9 @@ class CropBalanced extends Crop
         // Turn image into a grayscale
         $measureImage->modulateImage(100, 0, 100);
         // Turn everything darker than this to pitch black
-        $measureImage->blackThresholdImage("#101010");
+        $measureImage->blackThresholdImage("#070707");
         // Get the calculated offset for cropping
-        return $this->getOffsetBalanced($targetWidth, $targetHeight);
+        return $this->getOffsetBalanced2($measureImage, $targetWidth, $targetHeight);
     }
 
     /**
@@ -58,6 +58,17 @@ class CropBalanced extends Crop
      */
     public function getOffsetBalanced($targetWidth, $targetHeight)
     {
+        return $this->getOffsetBalanced2($this->originalImage, $targetWidth, $targetHeight);
+    }
+
+    /**
+     * @param \Imagick $image
+     * @param $targetWidth
+     * @param $targetHeight
+     * @return array
+     * @throws \Exception
+     */
+    protected function getOffsetBalanced2(\Imagick $image, $targetWidth, $targetHeight) {
         $size = $this->originalImage->getImageGeometry();
 
         $points = array();
@@ -66,25 +77,25 @@ class CropBalanced extends Crop
         $halfHeight = ceil($size['height']/2);
 
         // First quadrant
-        $clone = clone($this->originalImage);
+        $clone = clone($image);
         $clone->cropimage($halfWidth, $halfHeight, 0, 0);
         $point = $this->getHighestEnergyPoint($clone);
         $points[] = array('x' => $point['x'], 'y' => $point['y'], 'sum' => $point['sum']);
 
         // Second quadrant
-        $clone = clone($this->originalImage);
+        $clone = clone($image);
         $clone->cropimage($halfWidth, $halfHeight, $halfWidth, 0);
         $point = $this->getHighestEnergyPoint($clone);
         $points[] = array('x' => $point['x']+$halfWidth, 'y' => $point['y'], 'sum' => $point['sum']);
 
         // Third quadrant
-        $clone = clone($this->originalImage);
+        $clone = clone($image);
         $clone->cropimage($halfWidth, $halfHeight, 0, $halfHeight);
         $point = $this->getHighestEnergyPoint($clone);
         $points[] = array('x' => $point['x'], 'y' => $point['y']+$halfHeight, 'sum' => $point['sum']);
 
         // Fourth quadrant
-        $clone = clone($this->originalImage);
+        $clone = clone($image);
         $clone->cropimage($halfWidth, $halfHeight, $halfWidth, $halfHeight);
         $point = $point = $this->getHighestEnergyPoint($clone);
         $points[] = array('x' => $point['x']+$halfWidth, 'y' => $point['y']+$halfHeight, 'sum' => $point['sum']);

@@ -69,7 +69,7 @@ class CropBalanced extends Crop
      * @throws \Exception
      */
     protected function getOffsetBalanced2(\Imagick $image, $targetWidth, $targetHeight) {
-        $size = $this->originalImage->getImageGeometry();
+        $size = $image->getImageGeometry();
 
         $points = array();
 

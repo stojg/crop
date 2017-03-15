@@ -75,6 +75,9 @@ class CropFace extends CropEntropy
     protected function getFaceListFromClassifier($classifier)
     {
         $faceList = face_detect($this->imagePath, __DIR__ . $classifier);
+        if (!$faceList) {
+            $faceList = array();
+        }
 
         return $faceList;
     }

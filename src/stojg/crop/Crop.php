@@ -240,7 +240,7 @@ abstract class Crop
      * @param  int $r
      * @param  int $g
      * @param  int $b
-     * @return int
+     * @return double
      * @see http://en.wikipedia.org/wiki/YUV
      */
     protected function rgb2bw($r, $g, $b)

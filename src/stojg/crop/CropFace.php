@@ -33,6 +33,14 @@ class CropFace extends CropEntropy
     protected $safeZoneList;
 
     /**
+     * max execution time (in seconds)
+     *
+     * @var int
+     * @access protected
+     */
+    protected $maxExecutionTime;
+
+    /**
      *
      * @param string $imagePath
      */
@@ -40,6 +48,18 @@ class CropFace extends CropEntropy
     {
         $this->imagePath = $imagePath;
         parent::__construct($imagePath);
+    }
+
+    /**
+     * setMaxExecutionTime
+     *
+     * @param int $maxExecutionTime max execution time (in sec)
+     * @access public
+     * @return void
+     */
+    public function setMaxExecutionTime($maxExecutionTime)
+    {
+        $this->maxExecutionTime = $maxExecutionTime;
     }
 
     /**
@@ -56,11 +76,18 @@ class CropFace extends CropEntropy
             throw new \Exception($msg);
         }
 
+        if ($this->maxExecutionTime) {
+            $timeBefore = microtime(true);
+        }
         $faceList = $this->getFaceListFromClassifier(self::CLASSIFIER_FACE);
+        if ($this->maxExecutionTime) {
+            $timeSpent = microtime(true) - $timeBefore;
+        }
 
-        $profileList = $this->getFaceListFromClassifier(self::CLASSIFIER_PROFILE);
-
-        $faceList = array_merge($faceList, $profileList);
+        if (!$this->maxExecutionTime || $timeSpent < ($this->maxExecutionTime / 2)) {
+            $profileList = $this->getFaceListFromClassifier(self::CLASSIFIER_PROFILE);
+            $faceList = array_merge($faceList, $profileList);
+        }
 
         return $faceList;
     }

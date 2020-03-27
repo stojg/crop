@@ -46,7 +46,7 @@ class CropBalanced extends Crop
         // Turn everything darker than this to pitch black
         $measureImage->blackThresholdImage("#070707");
         // Get the calculated offset for cropping
-        return $this->getOffsetBalanced2($measureImage, $targetWidth, $targetHeight);
+        return $this->getOffsetBalancedForImage($measureImage, $targetWidth, $targetHeight);
     }
 
     /**
@@ -58,7 +58,7 @@ class CropBalanced extends Crop
      */
     public function getOffsetBalanced($targetWidth, $targetHeight)
     {
-        return $this->getOffsetBalanced2($this->originalImage, $targetWidth, $targetHeight);
+        return $this->getOffsetBalancedForImage($this->originalImage, $targetWidth, $targetHeight);
     }
 
     /**
@@ -68,7 +68,8 @@ class CropBalanced extends Crop
      * @return array
      * @throws \Exception
      */
-    protected function getOffsetBalanced2(\Imagick $image, $targetWidth, $targetHeight) {
+    private function getOffsetBalancedForImage(\Imagick $image, $targetWidth, $targetHeight)
+    {
         $size = $image->getImageGeometry();
 
         $points = array();

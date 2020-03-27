@@ -100,11 +100,14 @@ class CropBalanced extends Crop
         $centerX = 0;
         $centerY = 0;
 
-        // Calulate the mean weighted center x and y
-        $totalPoints = count($points);
-        for ($idx=0; $idx < $totalPoints; $idx++) {
-            $centerX += $points[$idx]['x'] * ($points[$idx]['sum'] / $totalWeight);
-            $centerY += $points[$idx]['y'] * ($points[$idx]['sum'] / $totalWeight);
+        // If we found a center point, made the calculations to found the coords
+        if ($totalWeight) {
+            // Calulate the mean weighted center x and y
+            $totalPoints = count($points);
+            for ($idx=0; $idx < $totalPoints; $idx++) {
+                $centerX += $points[$idx]['x'] * ($points[$idx]['sum'] / $totalWeight);
+                $centerY += $points[$idx]['y'] * ($points[$idx]['sum'] / $totalWeight);
+            }
         }
 
         // From the weighted center point to the topleft corner of the crop would be
